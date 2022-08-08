@@ -18,15 +18,22 @@ type ToDo struct {
 	Description string `json:"description" form:"description" query:"description"`
 	Date        string `json:"date" form:"date" query:"date"`
 	ID          int    `json:"id" form:"id" query:"id"`
+	State       int    `json:"state" form:"state" query:"state"`
+}
+type User struct {
+	Name     string `json:"name" form:"name" query:"name"`
+	Password string `json:"password" form:"password" query:"password"`
+	Email    string `json:"email" form:"Email" query:"Email"`
 }
 
 const (
-	get      = "get"
-	edit     = "edit"
-	insert   = "insert"
-	delete   = "delete"
-	update   = "update"
-	toDoPath = "./db/todo.json"
+	get       = "get"
+	edit      = "edit"
+	insert    = "insert"
+	delete    = "delete"
+	update    = "update"
+	toDoPath  = "./db/todo.json"
+	loginPath = "./db/login.json"
 )
 
 func main() {
@@ -41,7 +48,7 @@ func main() {
 		switch toType {
 		case get:
 			result = getResult()
-			fmt.Println(JSONToMap(result))
+			fmt.Println(JSONToMap[ToDo](result))
 			break
 		case edit:
 			break
@@ -49,6 +56,25 @@ func main() {
 			data := c.QueryParam("data")
 			result = insertResult(data)
 			break
+		}
+		return c.JSON(http.StatusOK, result)
+	})
+
+	e.GET("/login", func(c echo.Context) error {
+		total += 1
+		fmt.Println(total)
+		c.Response().Header().Set("Access-Control-Allow-Origin", "*")
+		name := c.QueryParam("name")
+		var result = []User{}
+		password := c.QueryParam("password")
+		if d, err := ioutil.ReadFile(loginPath); err == nil {
+			users := JSONToMap[User](string(d))
+			for k, v := range users {
+				if v.Name == name && v.Password == password {
+					result = users[k:1]
+				}
+			}
+			fmt.Println(result)
 		}
 		return c.JSON(http.StatusOK, result)
 	})
@@ -76,8 +102,8 @@ func deleteResult() string {
 // 插入数据
 func insertResult(data string) string {
 	fmt.Println(data)
-	newData := JSONToMap(data)
-	var result, _ = json.Marshal(append(JSONToMap(getResult()), newData...))
+	newData := JSONToMap[ToDo](data)
+	var result, _ = json.Marshal(append(JSONToMap[ToDo](getResult()), newData...))
 	f, err := os.OpenFile(toDoPath, os.O_WRONLY|os.O_TRUNC, 0600)
 	defer f.Close()
 	if err != nil {
@@ -89,8 +115,8 @@ func insertResult(data string) string {
 }
 
 // json转map
-func JSONToMap(str string) []ToDo {
-	var tempMap []ToDo
+func JSONToMap[T any](str string) []T {
+	var tempMap []T
 	err := json.Unmarshal([]byte(str), &tempMap)
 	if err != nil {
 		panic(err)
