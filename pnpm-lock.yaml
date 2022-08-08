@@ -9,6 +9,7 @@ specifiers:
   antd: ^4.22.3
   axios: ^0.27.2
   clsx: ^1.2.1
+  dayjs: ^1.11.4
   prism-react-renderer: ^1.3.5
   react: ^17.0.2
   react-dom: ^17.0.2
@@ -28,6 +29,7 @@ devDependencies:
   '@tsconfig/docusaurus': registry.npmjs.org/@tsconfig/docusaurus/1.0.6
   antd: registry.npmjs.org/antd/4.22.3_react-dom@17.0.2+react@17.0.2
   axios: registry.npmjs.org/axios/0.27.2
+  dayjs: registry.npmjs.org/dayjs/1.11.4
   typescript: registry.npmjs.org/typescript/4.7.4
 
 packages:
