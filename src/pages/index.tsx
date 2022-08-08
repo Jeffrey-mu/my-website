@@ -18,7 +18,7 @@ function buttonItem(options) {
   </>
 }
 const routes = [
-  { label: '代办事项 ✏️', url: 'toDo' },
+  { label: '待办事项', url: 'toDo' },
   { label: '写文章 ✏️', url: 'edit' },
 ]
 function HomepageHeader() {

@@ -17,13 +17,19 @@
 }
 
 .main {
+  padding: 20px;
   display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: row;
-  margin-top: 10px;
+  flex-wrap: wrap;
 }
-.editor {
-  flex: 1;
-  height: 400px;
+.card {
+  min-width: 400px;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 15px;
+  margin: 10px;
+}
+.toDoAction {
+  padding: 20px;
+  display: flex;
+  flex-direction: row-reverse;
 }
