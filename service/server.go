@@ -1,8 +1,11 @@
 package main
 
 import (
+	"encoding/json"
+	"fmt"
 	"io/ioutil"
 	"net/http"
+	"os"
 
 	"github.com/labstack/echo/v4"
 )
@@ -15,11 +18,12 @@ type ToDo struct {
 }
 
 const (
-	get    = "get"
-	edit   = "edit"
-	append = "append"
-	delete = "delete"
-	update = "update"
+	get      = "get"
+	edit     = "edit"
+	insert   = "insert"
+	delete   = "delete"
+	update   = "update"
+	toDoPath = "./db/todo.json"
 )
 
 func main() {
@@ -32,19 +36,47 @@ func main() {
 		switch toType {
 		case get:
 			result = getResult()
+			fmt.Println(JSONToMap(result))
+			break
 		case edit:
 			break
-		case append:
+		case insert:
+			data := c.QueryParam("data")
+			result = appendResult(data)
 			break
 		}
 		return c.JSON(http.StatusOK, result)
 	})
 	e.Logger.Fatal(e.Start(":1323"))
 }
+
 func getResult() string {
 	var result string
-	if d, err := ioutil.ReadFile("./db/todo.json"); err == nil {
+	if d, err := ioutil.ReadFile(toDoPath); err == nil {
 		result = string(d)
 	}
 	return result
+}
+
+func appendResult(data string) string {
+	newData := JSONToMap(data)
+	var result, _ = json.Marshal(append(JSONToMap(getResult()), newData...))
+	f, err := os.OpenFile(toDoPath, os.O_WRONLY|os.O_TRUNC, 0600)
+	defer f.Close()
+	if err != nil {
+		fmt.Println(err.Error())
+	} else {
+		_, err = f.Write(result)
+	}
+	fmt.Println(string(result))
+	return string(result)
+}
+
+func JSONToMap(str string) []ToDo {
+	var tempMap []ToDo
+	err := json.Unmarshal([]byte(str), &tempMap)
+	if err != nil {
+		panic(err)
+	}
+	return tempMap
 }
