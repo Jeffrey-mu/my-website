@@ -42,7 +42,7 @@ func main() {
 			break
 		case insert:
 			data := c.QueryParam("data")
-			result = appendResult(data)
+			result = insertResult(data)
 			break
 		}
 		return c.JSON(http.StatusOK, result)
@@ -50,6 +50,7 @@ func main() {
 	e.Logger.Fatal(e.Start(":1323"))
 }
 
+// 查询数据
 func getResult() string {
 	var result string
 	if d, err := ioutil.ReadFile(toDoPath); err == nil {
@@ -58,7 +59,17 @@ func getResult() string {
 	return result
 }
 
-func appendResult(data string) string {
+// 删除数据
+func deleteResult() string {
+	var result string
+	if d, err := ioutil.ReadFile(toDoPath); err == nil {
+		result = string(d)
+	}
+	return result
+}
+
+// 插入数据
+func insertResult(data string) string {
 	newData := JSONToMap(data)
 	var result, _ = json.Marshal(append(JSONToMap(getResult()), newData...))
 	f, err := os.OpenFile(toDoPath, os.O_WRONLY|os.O_TRUNC, 0600)
@@ -72,6 +83,7 @@ func appendResult(data string) string {
 	return string(result)
 }
 
+// json转map
 func JSONToMap(str string) []ToDo {
 	var tempMap []ToDo
 	err := json.Unmarshal([]byte(str), &tempMap)
