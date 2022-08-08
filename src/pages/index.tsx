@@ -9,7 +9,7 @@ import HomepageFeatures from '@site/src/components/HomepageFeatures';
 import styles from './index.module.css';
 function buttonItem(options) {
   return <>
-    <div className={styles.button}>
+    <div className={styles.button} key={options.url}>
       <Link
         className="button button--secondary button--lg"
         to={options.url}>

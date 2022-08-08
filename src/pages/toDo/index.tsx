@@ -6,7 +6,20 @@ import clsx from 'clsx';
 import { get } from '../../utils/request'
 import Link from '@docusaurus/Link';
 import dayjs from 'dayjs'
-
+// enum ToDoState {
+//   not,
+//   receive,
+//   underway,
+//   finish,
+// }
+const stateName = ['未开始', '已收到', '进行中', '已完成']
+function formatState(item, prop) {
+  if (prop === 'state') {
+    return stateName[item[prop]]
+  }
+  return item[prop]
+}
+const toExceedTheTimeLimitTime = 1000 * 60 * 60
 interface ToDo {
   title: string
   description: string
@@ -20,27 +33,38 @@ export default function App() {
   const [dataInfo, setDataInfo] = useState<ToDo>({
     title: '1',
     description: '',
-    date: dayjs().format("YYYY-MM-DD"),
+    date: dayjs().format("YYYY-MM-DD hh:mm:ss"),
     name: '',
   })
+  function toExceedTheTimeLimit(time: string) {
+    let nowTime = +new Date
+    let targetTime = + new Date(time)
+    return nowTime >= targetTime
+  }
   const infoKV = [
     {
       prop: 'title',
-      label: '标题'
+      label: '标题',
+      type: 'text',
     }, {
       prop: 'description',
-      label: '描述'
+      label: '描述',
+      type: 'text',
     }, {
       prop: 'date',
       label: '时间',
-      type: 'text'
+      type: 'datetime-local'
     }, {
       prop: 'name',
-      label: '用户'
+      label: '用户',
+      type: 'text',
+    }, {
+      prop: 'state',
+      label: '进度',
+      type: 'select',
     }
   ]
   useEffect(() => {
-    console.log(dataInfo)
     Fetch({ toType: 'get' })
   }, [])
   type FetchType = 'get' | 'edit' | 'delete' | 'insert' | 'update'
@@ -50,7 +74,13 @@ export default function App() {
   }
   function Fetch(options?: FetchOptions) {
     get('http://localhost:1323/todo', options).then(res => {
-      setCard(JSON.parse(res))
+      console.log(res)
+      const data = JSON.parse(res) as ToDo[]
+      console.log(data)
+      data.sort((a, b) => +new Date(b.date) - +new Date(a.date))
+      console.log(data)
+      setCard(data)
+      setShowAdd(false)
     })
   }
   function ToDoAction() {
@@ -62,26 +92,32 @@ export default function App() {
           }>
           添加事件
         </Link>
+        <Link
+          className="button button--secondary button--lg" onClick={
+            setShowAdd.bind(null, true)
+          }>
+          修改事件
+        </Link>
       </div>
     </>
   }
 
   function insert() {
+    dataInfo.date = dayjs(dataInfo.date).format('YYYY-MM-DD HH:mm:ss');
     Fetch({
       toType: "insert",
       data: JSON.stringify([{ ...dataInfo, id: card.at(-1).id + 1 }])
     })
-    console.log(dataInfo)
   }
 
   function addData() {
     return showAdd && <div className={clsx(style.card)}>
-      <p>序号：{card.length + 1}</p>
-      {infoKV.map(el =>
+      <p>{card.length + 1}</p>
+      {infoKV.map((el, index) =>
         <>
-          <p>{el.label}：{el.type !== 'text' ? <input type="text" value={dataInfo[el.prop]} onChange={(e) => {
+          <p key={index}> <span>{el.label}：</span> {<input type={el.type} value={dataInfo[el.prop]} onChange={(e) => {
             setDataInfo({ ...dataInfo, ...{ [el.prop]: e.target.value } })
-          }} /> : dataInfo[el.prop]}</p>
+          }} />}</p>
         </>
       )}
       <button onClick={insert}>提交</button>
@@ -93,10 +129,10 @@ export default function App() {
 
   function Card() {
     return card.map((item, index) =>
-      <div className={clsx(style.card)} key={index}>
-        <p>序号：{index + 1}</p>
-        {infoKV.map(el => <>
-          <p>{el.label}：{item[el.prop]}</p>
+      <div className={clsx(style.card, toExceedTheTimeLimit(item.date) && style.timeOut)} key={index}>
+        <p>{index + 1}</p>
+        {infoKV.map((el, index) => <>
+          <p key={index}> <span>{el.label}：</span>{formatState(item, el.prop)}</p>
         </>)}
       </div>
     )

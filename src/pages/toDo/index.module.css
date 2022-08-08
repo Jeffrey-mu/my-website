@@ -23,13 +23,51 @@
 }
 .card {
   min-width: 400px;
-  padding: 20px;
-  border: 1px solid #ccc;
+  padding: 15px;
+  padding-top: 0;
+  border: 2px solid rgb(82, 196, 1);
   border-radius: 15px;
+  color: rgb(39, 136, 39);
   margin: 10px;
+  transition: all .2s;
+  background-color: rgb(253, 253, 253);
+}
+.card p {
+  margin: 0;
+}
+.card p:nth-child(1) {
+  background: #fff;
+  margin-top: 3px;
+  padding: 0 6px;
+  border-radius: 50%;
+  line-height: 20px;
+  float:right;
+  border: 1px solid;
+  text-align: right;
+}
+.card span {
+  font-weight: bold;
+}
+.card:hover {
+  transition: all .2s;
+  transform: scale(.98);
+  box-shadow: 0px 8px 0px 0px rgb(82, 196, 1);
 }
 .toDoAction {
+  transition: all .2s;
   padding: 20px;
   display: flex;
   flex-direction: row-reverse;
+}
+.toDoAction a {
+  margin-left: 20px;
+}
+.timeOut {
+  transition: all .2s;
+  border-color:red;
+  color: rgb(178, 98, 98);
+
+}
+.timeOut:hover {
+ box-shadow: 0px 8px 0px 0px red;
 }
