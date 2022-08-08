@@ -10,11 +10,14 @@ import (
 	"github.com/labstack/echo/v4"
 )
 
+var total int = 0
+
 type ToDo struct {
-	Title   string `json:"title" form:"title" query:"title"`
-	Content string `json:"content" form:"content" query:"content"`
-	Date    string `json:"date" form:"date" query:"date"`
-	ID      int    `json:"id" form:"id" query:"id"`
+	Title       string `json:"title" form:"title" query:"title"`
+	Name        string `json:"name" form:"name" query:"name"`
+	Description string `json:"description" form:"description" query:"description"`
+	Date        string `json:"date" form:"date" query:"date"`
+	ID          int    `json:"id" form:"id" query:"id"`
 }
 
 const (
@@ -30,6 +33,8 @@ func main() {
 	e := echo.New()
 	e.Static("/static", "static")
 	e.GET("/todo", func(c echo.Context) error {
+		total += 1
+		fmt.Println(total)
 		c.Response().Header().Set("Access-Control-Allow-Origin", "*")
 		toType := c.QueryParam("toType")
 		var result string
@@ -70,6 +75,7 @@ func deleteResult() string {
 
 // 插入数据
 func insertResult(data string) string {
+	fmt.Println(data)
 	newData := JSONToMap(data)
 	var result, _ = json.Marshal(append(JSONToMap(getResult()), newData...))
 	f, err := os.OpenFile(toDoPath, os.O_WRONLY|os.O_TRUNC, 0600)
@@ -79,7 +85,6 @@ func insertResult(data string) string {
 	} else {
 		_, err = f.Write(result)
 	}
-	fmt.Println(string(result))
 	return string(result)
 }
 
