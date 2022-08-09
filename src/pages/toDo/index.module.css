@@ -31,6 +31,20 @@
   margin: 10px;
   transition: all .2s;
 }
+.dialog_mask {
+  width: 100vw;
+  height: 100vh;
+  position: fixed;
+  top: 0px;
+  left: 0;
+  background: rgba(221, 220, 231, 0.5);
+}
+.dialog {
+  position: fixed;
+  top: calc(50% - 200px);
+  left: calc(50% - 200px);
+  background: rgba(221, 220, 231, 0.8);
+}
 .card p {
   margin: 0;
 }

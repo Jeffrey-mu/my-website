@@ -20,6 +20,7 @@ interface ToDo {
   date: string
   name: string
   id?: number
+  state: number
 }
 type ToDoTab = 'c' | 'h'
 type FetchType = 'get' | 'edit' | 'delete' | 'insert' | 'update'
@@ -40,13 +41,24 @@ export default function App() {
     description: '',
     date: dayjs().format("YYYY-MM-DD hh:mm:ss"),
     name: '',
+    state: 0
   })
   function toExceedTheTimeLimit(time: string) {
     let nowTime = +new Date
     let targetTime = + new Date(time)
     return nowTime >= targetTime
   }
-  const infoKV = [
+  interface Radio {
+    name: string
+    value: string
+  }
+  interface DataInfoKV {
+    prop: string,
+    label: string,
+    type: 'text' | 'datetime-local' | 'radio',
+    option?: Radio[]
+  }
+  const infoKV: DataInfoKV[] = [
     {
       prop: 'title',
       label: '标题',
@@ -64,12 +76,17 @@ export default function App() {
     }, {
       prop: 'name',
       label: '用户',
-      type: 'text',
-    }, {
-      prop: 'state',
-      label: '进度',
-      type: 'select',
-    }
+      type: 'radio',
+      option: [
+        { name: 'name', value: 'jiaf' },
+        { name: 'name', value: 'muci' }
+      ]
+    },
+    // {
+    //   prop: 'state',
+    //   label: '进度',
+    //   type: 'select',
+    // }
   ]
   useEffect(() => {
     Fetch({ toType: 'get' })
@@ -127,19 +144,31 @@ export default function App() {
   }
 
   function addData() {
-    return showAdd && <div className={clsx(style.card)}>
-      <p>{card.length + 1}</p>
-      {infoKV.map((el, index) =>
-        <>
-          <p key={index}> <span>{el.label}：</span> {<input type={el.type} value={dataInfo[el.prop]} onChange={(e) => {
-            setDataInfo({ ...dataInfo, ...{ [el.prop]: e.target.value } })
-          }} />}</p>
-        </>
-      )}
-      <button onClick={insert}>提交</button>
-      <button onClick={() => {
-        setShowAdd(false)
-      }}>取消</button>
+    return showAdd && <div className={clsx(style.dialog_mask)}>
+      <div className={clsx(style.card, style.dialog)}>
+        <p>{card.length + 1}</p>
+        {infoKV.map((el, index) =>
+          <>
+            <p key={index}> <span>{el.label}：</span> {
+
+              el.type === 'radio' ?
+                // @ts-ignore
+                el.option.map(op => <><label htmlFor="">
+                  {op.value}</label> <input {...op} type={el.type} value={dataInfo[el.prop]} onChange={(e) => {
+                    setDataInfo({ ...dataInfo, ...{ [el.prop]: op.value } })
+                  }} /></>)
+                : <input type={el.type} value={dataInfo[el.prop]} onChange={(e) => {
+                  setDataInfo({ ...dataInfo, ...{ [el.prop]: e.target.value } })
+                }} />
+
+            }</p>
+          </>
+        )}
+        <button onClick={insert}>提交</button>
+        <button onClick={() => {
+          setShowAdd(false)
+        }}>取消</button>
+      </div>
     </div >
   }
 
