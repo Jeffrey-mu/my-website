@@ -7,7 +7,6 @@
   padding: 4rem 0;
   text-align: center;
   position: relative;
-  overflow: hidden;
 }
 
 @media screen and (max-width: 996px) {
@@ -20,6 +19,7 @@
   padding: 20px;
   display: flex;
   flex-wrap: wrap;
+  overflow: hidden;
 }
 .card {
   min-width: 400px;
@@ -30,13 +30,11 @@
   color: rgb(39, 136, 39);
   margin: 10px;
   transition: all .2s;
-  background-color: rgb(253, 253, 253);
 }
 .card p {
   margin: 0;
 }
 .card p:nth-child(1) {
-  background: #fff;
   margin-top: 3px;
   padding: 0 6px;
   border-radius: 50%;
@@ -55,7 +53,7 @@
 }
 .toDoAction {
   transition: all .2s;
-  padding: 20px;
+  padding-right: 20px;
   display: flex;
   flex-direction: row-reverse;
 }
@@ -71,3 +69,20 @@
 .timeOut:hover {
  box-shadow: 0px 8px 0px 0px red;
 }
+.ToDoTab {
+  display: flex;
+  justify-content: center;
+  margin-top: 5px;
+}
+.ToDoTab span {
+  margin-left: 10px;
+  display: inline-block;
+  padding: 0 10px;
+  cursor: pointer;
+  border: 1px solid #aeb9b3;
+  border-radius: 3px;
+}
+.ToDoTab span:hover {
+  color: #2e8555;
+}
+

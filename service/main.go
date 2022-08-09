@@ -38,7 +38,7 @@ const (
 
 func main() {
 	e := echo.New()
-	e.Static("/static", "static")
+	e.Static("/", "static")
 
 	e.GET("/todo", func(c echo.Context) error {
 		total += 1
