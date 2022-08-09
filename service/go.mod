@@ -1,4 +1,4 @@
-module service
+module main
 
 go 1.18
 

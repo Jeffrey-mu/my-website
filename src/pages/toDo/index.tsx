@@ -73,7 +73,7 @@ export default function App() {
     data?: T
   }
   function Fetch(options?: FetchOptions) {
-    get('http://localhost:1323/todo', options).then(res => {
+    get('http://101.200.33.150:1323/todo', options).then(res => {
       console.log(res)
       const data = JSON.parse(res) as ToDo[]
       console.log(data)

@@ -20,7 +20,7 @@ function buttonItem(options) {
 }
 const routes = [
   { label: '待办事项', url: 'toDo' },
-  { label: '写文章 ✏️', url: 'edit' },
+  { label: '写文章 ✏️', url: 'toDo' },
 ]
 function HomepageHeader() {
   const { siteConfig } = useDocusaurusContext();
