@@ -1,7 +1,8 @@
 import axios from 'axios'
 // const APi = 'http://101.200.33.150:1323'
-const APi = 'http://localhost:3100'
+const APi = 'http://101.200.33.150:3100/api'
 export function request(method) {
+
   return function (url: string, params = {}) {
     return axios({
       url: APi + url,

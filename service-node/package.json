@@ -14,6 +14,7 @@
     "morgan": "~1.9.1"
   },
   "devDependencies": {
+    "dayjs": "^1.11.4",
     "mysql2": "^2.3.3",
     "sequelize": "^6.21.3"
   }
