@@ -36,13 +36,7 @@ export default function App() {
   const [toDoTab, setToDoTab] = useState<ToDoTab>('c')
   const [active, setActive] = useState<number>(-1)
   const [showAdd, setShowAdd] = useState<boolean>(false)
-  const [dataInfo, setDataInfo] = useState<ToDo>({
-    title: '',
-    description: '',
-    date: dayjs().format("YYYY-MM-DD hh:mm:ss"),
-    name: '',
-    state: 0
-  })
+  const [dataInfo, setDataInfo] = useState<ToDo>()
   function toExceedTheTimeLimit(time: string) {
     let nowTime = +new Date
     let targetTime = + new Date(time)
@@ -97,7 +91,18 @@ export default function App() {
     setCard(data)
     setShowAdd(false)
   }
-
+  function resetActive() {
+    setActive(-1)
+  }
+  function resetDataInfo(info?: ToDo) {
+    setDataInfo({
+      title: '',
+      description: '',
+      date: dayjs().format("YYYY-MM-DD hh:mm:ss"),
+      name: '',
+      state: 0
+    })
+  }
   function ToDoTab() {
     const TAB_BTN: TAB_BTN[] = [
       {
@@ -111,7 +116,10 @@ export default function App() {
     return <>
       <div className={style.ToDoTab}>
         {
-          TAB_BTN.map(item => <span style={item.value === toDoTab ? { color: '#2e8555' } : {}} onClick={setToDoTab.bind(null, item.value)}>{item.name}</span>)
+          TAB_BTN.map(item => <span key={item.name} style={item.value === toDoTab ? { color: '#2e8555' } : {}} onClick={() => {
+            setToDoTab(item.value)
+            resetActive()
+          }}>{item.name}</span>)
         }
       </div>
     </>
@@ -122,7 +130,10 @@ export default function App() {
       <div className={style.toDoAction}>
         <Link
           className="button button--secondary button--lg" onClick={
-            setShowAdd.bind(null, true)
+            () => {
+              setShowAdd(true)
+              resetDataInfo()
+            }
           }>
           添加事件
         </Link>
@@ -132,7 +143,7 @@ export default function App() {
               className="button button--secondary button--lg" onClick={
                 () => {
                   setShowAdd(true)
-                  setDataInfo(card[active])
+                  setDataInfo(card.find(el => el.id === active))
                 }
               }>
               修改事件
@@ -140,8 +151,9 @@ export default function App() {
             <Link
               className="button button--secondary button--lg" onClick={
                 async () => {
-                  await delTodoData({ id: card[active].id })
+                  await delTodoData({ id: active })
                   getData()
+                  resetActive()
                 }
               }>
               删除事件
@@ -165,15 +177,15 @@ export default function App() {
         <p>{card.length + 1}</p>
         {infoKV.map((el, index) =>
           <>
-            <p key={index}> <span>{el.label}：</span> {
+            <p key={el.label}> <span>{el.label}：</span> {
 
               el.type === 'radio' ?
                 // @ts-ignore
-                el.option.map(op => <><label htmlFor="">
-                  {op.value}</label> <input {...op} type={el.type} value={dataInfo[el.prop]} onChange={(e) => {
+                el.option.map(op => <><label htmlFor="" key={op.value}>
+                  {op.value}</label> <input {...op} key={op.value} type={el.type} value={dataInfo[el.prop]} onChange={(e) => {
                     setDataInfo({ ...dataInfo, ...{ [el.prop]: op.value } })
                   }} /></>)
-                : <input type={el.type} value={dataInfo[el.prop]} onChange={(e) => {
+                : <input type={el.type} key={el.label} value={dataInfo[el.prop]} onChange={(e) => {
                   setDataInfo({ ...dataInfo, ...{ [el.prop]: e.target.value } })
                 }} />
 
@@ -192,7 +204,7 @@ export default function App() {
     const f = toExceedTheTimeLimit
     const newCard = card.filter(c => toDoTab === 'c' ? !f(c.date) && c : f(c.date) && c)
     return newCard.map((item, index) =>
-      <div title="点击选择" onClick={() => setActive(index)} className={clsx(style.card, active === index && style.active, f(item.date) && style.timeOut)} key={index}>
+      <div title="点击选择" onClick={() => setActive(item.id)} className={clsx(style.card, active === item.id && style.active, f(item.date) && style.timeOut)} key={item.id}>
         <p>{index + 1}</p>
         {infoKV.map((el, index) => <>
           <p key={index}> <span>{el.label}：</span>{formatState(item, el.prop)}</p>
