@@ -1,16 +1,23 @@
 import axios from 'axios'
-export function get(url: string, params = {}) {
-  return axios({
-    url,
-    method: 'get',
-    params
-  }).then(res => {
-    console.log(params);
-    return res.data
-  })
+// const APi = 'http://101.200.33.150:1323'
+const APi = 'http://localhost:3100'
+export function request(method) {
+  return function (url: string, params = {}) {
+    return axios({
+      url: APi + url,
+      method,
+      params
+    }).then(res => {
+      console.log(params);
+      return res.data
+    })
+  }
+
 }
-export function post(url: string, data = {}) {
-  return axios.post(url, data).then(res => {
-    return res.data
-  })
+export default {
+  get: request('get'),
+  put: request('put'),
+  del: request('delete'),
+  post: request('post'),
 }
+

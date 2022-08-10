@@ -62,8 +62,6 @@ func main() {
 	})
 
 	e.GET("/login", func(c echo.Context) error {
-		total += 1
-		fmt.Println(total)
 		c.Response().Header().Set("Access-Control-Allow-Origin", "*")
 		name := c.QueryParam("name")
 		var result = []User{}

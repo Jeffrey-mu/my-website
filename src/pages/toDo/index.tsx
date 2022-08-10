@@ -3,10 +3,9 @@ import Layout from '@theme/Layout';
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 import style from './index.module.css'
 import clsx from 'clsx';
-import { get } from '../../utils/request'
 import Link from '@docusaurus/Link';
 import dayjs from 'dayjs'
-
+import { getTodoData, addTodoData } from '../../api/todo'
 const stateName = ['未开始', '已收到', '进行中', '已完成']
 function formatState(item, prop) {
   if (prop === 'state') {
@@ -35,6 +34,7 @@ interface TAB_BTN {
 export default function App() {
   const [card, setCard] = useState<ToDo[]>([])
   const [toDoTab, setToDoTab] = useState<ToDoTab>('c')
+  const [active, setActive] = useState<number>(-1)
   const [showAdd, setShowAdd] = useState<boolean>(false)
   const [dataInfo, setDataInfo] = useState<ToDo>({
     title: '',
@@ -89,19 +89,13 @@ export default function App() {
     // }
   ]
   useEffect(() => {
-    Fetch({ toType: 'get' })
+    getData()
   }, [])
 
-  function Fetch(options?: FetchOptions) {
-    get('http://101.200.33.150:1323/todo', options).then(res => {
-      console.log(res)
-      const data = JSON.parse(res) as ToDo[]
-      console.log(data)
-      data.sort((a, b) => +new Date(a.date) - +new Date(b.date))
-      console.log(data)
-      setCard(data)
-      setShowAdd(false)
-    })
+  async function getData(options?: FetchOptions) {
+    let data = await getTodoData()
+    setCard(data)
+    setShowAdd(false)
   }
 
   function ToDoTab() {
@@ -122,6 +116,7 @@ export default function App() {
       </div>
     </>
   }
+
   function ToDoAction() {
     return <>
       <div className={style.toDoAction}>
@@ -131,16 +126,26 @@ export default function App() {
           }>
           添加事件
         </Link>
+        {
+          active !== -1 && <Link
+            className="button button--secondary button--lg" onClick={
+              () => {
+                setShowAdd(true)
+                setDataInfo(card[active])
+              }
+            }>
+            修改事件
+          </Link>
+        }
+
       </div>
     </>
   }
 
-  function insert() {
+  async function insert() {
     dataInfo.date = dayjs(dataInfo.date).format('YYYY-MM-DD HH:mm:ss');
-    Fetch({
-      toType: "insert",
-      data: JSON.stringify([{ ...dataInfo, id: card.at(-1).id + 1 }])
-    })
+    await addTodoData({ ...dataInfo, id: card.at(-1).id + 1 })
+    getData()
   }
 
   function addData() {
@@ -176,7 +181,7 @@ export default function App() {
     const f = toExceedTheTimeLimit
     const newCard = card.filter(c => toDoTab === 'c' ? !f(c.date) && c : f(c.date) && c)
     return newCard.map((item, index) =>
-      <div className={clsx(style.card, f(item.date) && style.timeOut)} key={index}>
+      <div title="点击选择" onClick={() => setActive(index)} className={clsx(style.card, active === index && style.active, f(item.date) && style.timeOut)} key={index}>
         <p>{index + 1}</p>
         {infoKV.map((el, index) => <>
           <p key={index}> <span>{el.label}：</span>{formatState(item, el.prop)}</p>
@@ -200,4 +205,3 @@ export default function App() {
     </>
   );
 }
-
