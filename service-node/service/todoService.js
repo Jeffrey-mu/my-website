@@ -48,10 +48,10 @@ async function addTodo({ name, date, title, }) {
  * @param res
  * @return {Promise<Todo>}
  */
-async function delTodo({ name, date, title, }) {
+async function delTodo({ id }) {
   const allTodo = await TodoModel.destroy({ id })
   if (!allTodo) {
-    throw new MyError(NOT_FOUND_ERROR_CODE, "添加失败");
+    throw new MyError(NOT_FOUND_ERROR_CODE, "删除失败");
   }
   return allTodo;
 }
