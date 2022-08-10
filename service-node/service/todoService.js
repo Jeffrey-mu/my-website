@@ -1,10 +1,8 @@
 const MyError = require("../exception");
 const dayjs = require("dayjs");
 const { Op } = require("sequelize");
-
+const { SUCCESS_RESULT } = require('./')
 const {
-  NO_AUTH_ERROR_CODE,
-  REQUEST_PARAMS_ERROR_CODE,
   NOT_FOUND_ERROR_CODE,
 } = require("../exception/errorCode");
 const TodoModel = require("../model/todo");
@@ -49,11 +47,15 @@ async function addTodo({ name, date, title, }) {
  * @return {Promise<Todo>}
  */
 async function delTodo({ id }) {
-  const allTodo = await TodoModel.destroy({ id })
-  if (!allTodo) {
-    throw new MyError(NOT_FOUND_ERROR_CODE, "删除失败");
+  const allTodo = await TodoModel.destroy({
+    where: {
+      id: +id
+    }
+  })
+  if (allTodo === 0) {
+    return new MyError(NOT_FOUND_ERROR_CODE, "删除失败");
   }
-  return allTodo;
+  return new SUCCESS_RESULT('删除成功');
 }
 module.exports = {
   getTodo,

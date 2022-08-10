@@ -5,7 +5,7 @@ import style from './index.module.css'
 import clsx from 'clsx';
 import Link from '@docusaurus/Link';
 import dayjs from 'dayjs'
-import { getTodoData, addTodoData } from '../../api/todo'
+import { getTodoData, addTodoData, delTodoData } from '../../api/todo'
 const stateName = ['未开始', '已收到', '进行中', '已完成']
 function formatState(item, prop) {
   if (prop === 'state') {
@@ -127,15 +127,26 @@ export default function App() {
           添加事件
         </Link>
         {
-          active !== -1 && <Link
-            className="button button--secondary button--lg" onClick={
-              () => {
-                setShowAdd(true)
-                setDataInfo(card[active])
-              }
-            }>
-            修改事件
-          </Link>
+          active !== -1 && <>
+            <Link
+              className="button button--secondary button--lg" onClick={
+                () => {
+                  setShowAdd(true)
+                  setDataInfo(card[active])
+                }
+              }>
+              修改事件
+            </Link>
+            <Link
+              className="button button--secondary button--lg" onClick={
+                async () => {
+                  await delTodoData({ id: card[active].id })
+                  getData()
+                }
+              }>
+              删除事件
+            </Link>
+          </>
         }
 
       </div>
