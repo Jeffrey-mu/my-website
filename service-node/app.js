@@ -6,7 +6,7 @@ var logger = require('morgan');
 
 var usersRouter = require('./routes/users');
 var todoRouter = require('./routes/todo');
-
+const API = '/api'
 var app = express();
 app.use(express.static(path.join(__dirname, '/public')));
 
@@ -32,8 +32,8 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 
 // app.use('/', indexRouter);
-app.use('/users', usersRouter);
-app.use('/todo', todoRouter);
+app.use(API + '/users', usersRouter);
+app.use(API + '/todo', todoRouter);
 app.use(function (req, res, next) {
   next(createError(404));
 });

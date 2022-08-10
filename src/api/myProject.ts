@@ -2,7 +2,7 @@ import request from '../utils/request'
 /**
  * 查询列表
 */
-interface MyProjectModel {
+export interface MyProjectModel {
   name: string
   url: string
   description: string

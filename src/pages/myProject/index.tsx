@@ -3,7 +3,7 @@ import Layout from '@theme/Layout';
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 import style from './index.module.css'
 import clsx from 'clsx';
-import { getMyProjectData } from '../../api/myProject'
+import { getMyProjectData, MyProjectModel } from '../../api/myProject'
 const stateName = ['未开始', '已收到', '进行中', '已完成']
 function formatState(item, prop) {
   if (prop === 'state') {
@@ -11,21 +11,14 @@ function formatState(item, prop) {
   }
   return item[prop]
 }
-interface ToDo {
-  title: string
-  description: string
-  date: string
-  name: string
-  id?: number
-  state: number
-}
+
 type FetchType = 'get' | 'edit' | 'delete' | 'insert' | 'update'
 interface FetchOptions<T = any> {
   toType?: FetchType,
   data?: T
 }
 export default function App() {
-  const [card, setCard] = useState<ToDo[]>([])
+  const [card, setCard] = useState<MyProjectModel[]>([])
   const [active, setActive] = useState<number>(-1)
   function toExceedTheTimeLimit(time: string) {
     let nowTime = +new Date

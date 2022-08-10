@@ -5,7 +5,8 @@ import style from './index.module.css'
 import clsx from 'clsx';
 import Link from '@docusaurus/Link';
 import dayjs from 'dayjs'
-import { getTodoData, addTodoData, delTodoData } from '../../api/todo'
+import { getTodoData, addTodoData, delTodoData, getUsers } from '../../api/todo'
+import _ from 'lodash'
 const stateName = ['未开始', '已收到', '进行中', '已完成']
 function formatState(item, prop) {
   if (prop === 'state') {
@@ -34,8 +35,10 @@ interface TAB_BTN {
 export default function App() {
   const [card, setCard] = useState<ToDo[]>([])
   const [toDoTab, setToDoTab] = useState<ToDoTab>('c')
+  const [password, setPassword] = useState<string>('')
   const [active, setActive] = useState<number>(-1)
   const [showAdd, setShowAdd] = useState<boolean>(false)
+  const [showAction, setShowAction] = useState<boolean>(false)
   const [dataInfo, setDataInfo] = useState<ToDo>()
   function toExceedTheTimeLimit(time: string) {
     let nowTime = +new Date
@@ -91,6 +94,13 @@ export default function App() {
     setCard(data)
     setShowAdd(false)
   }
+  async function verifyPassword(password: string) {
+    let data = await getUsers({ password })
+    if (data.code === 200) {
+      setShowAction(true)
+    }
+  }
+  const setPasswordThrottle = _.debounce(verifyPassword, 200)
   function resetActive() {
     setActive(-1)
   }
@@ -124,40 +134,43 @@ export default function App() {
       </div>
     </>
   }
-
   function ToDoAction() {
     return <>
       <div className={style.toDoAction}>
-        <Link
-          className="button button--secondary button--lg" onClick={
-            () => {
-              setShowAdd(true)
-              resetDataInfo()
-            }
-          }>
-          添加事件
-        </Link>
         {
-          active !== -1 && <>
+          showAction && <>
             <Link
               className="button button--secondary button--lg" onClick={
                 () => {
                   setShowAdd(true)
-                  setDataInfo(card.find(el => el.id === active))
+                  resetDataInfo()
                 }
               }>
-              修改事件
+              添加事件
             </Link>
-            <Link
-              className="button button--secondary button--lg" onClick={
-                async () => {
-                  await delTodoData({ id: active })
-                  getData()
-                  resetActive()
-                }
-              }>
-              删除事件
-            </Link>
+            {
+              active !== -1 && <>
+                <Link
+                  className="button button--secondary button--lg" onClick={
+                    () => {
+                      setShowAdd(true)
+                      setDataInfo(card.find(el => el.id === active))
+                    }
+                  }>
+                  修改事件
+                </Link>
+                <Link
+                  className="button button--secondary button--lg" onClick={
+                    async () => {
+                      await delTodoData({ id: active })
+                      getData()
+                      resetActive()
+                    }
+                  }>
+                  删除事件
+                </Link>
+              </>
+            }
           </>
         }
 
@@ -219,6 +232,14 @@ export default function App() {
         title={`Hello from ${siteConfig.title}`}
         description="Description will go into a meta tag in <head />">
         <ToDoTab />
+        {
+          !showAction && <div style={{ float: 'right' }}>
+            <input type="text" placeholder='输入密码解锁' value={password} onChange={(e) => {
+              setPassword(e.target.value)
+              setPasswordThrottle(e.target.value)
+            }} />
+          </div>
+        }
         <ToDoAction />
         <main className={style.main}>
           {Card()}

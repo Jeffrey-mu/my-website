@@ -21,3 +21,7 @@ export function addTodoData(data) {
 export function delTodoData(data) {
   return request.del('/todo', data)
 }
+
+export function getUsers(data) {
+  return request.get('/users', data)
+}
