@@ -41,6 +41,8 @@ const config = {
         },
         blog: {
           showReadingTime: true,
+          blogSidebarCount: 'ALL',
+          postsPerPage: 'ALL',
           // Please change this to your repo.
           // Remove this to remove the "edit this page" links.
           editUrl:
@@ -56,6 +58,28 @@ const config = {
   themeConfig:
     /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
     ({
+      algolia: {
+        // Algolia 提供的应用 ID
+        appId: 'W33HCJSIAT',
+
+        //  公开 API 密钥：提交它没有危险
+        apiKey: 'ada5ecdf3ba3b38c86c1df3a909b8860',
+        indexName: 'test_NAME',
+
+        // 可选：见下文
+        contextualSearch: true,
+
+        // 可选：声明哪些域名需要用 window.location 型的导航而不是 history.push。 适用于 Algolia 配置会爬取多个文档站点，而我们想要用 window.location.href 在它们之间跳转时。
+        externalUrlRegex: 'external\\.com|domain\\.com',
+
+        // 可选：Algolia 搜索参数
+        searchParameters: {},
+
+        // 可选：搜索页面的路径，默认启用（可以用 `false` 禁用）
+        // searchPagePath: 'search',
+
+        // ……其他 Algolia 参数
+      },
       navbar: {
         title: 'My Site',
         logo: {
