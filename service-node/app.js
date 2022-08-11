@@ -4,9 +4,7 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 
-var usersRouter = require('./routes/users');
-var todoRouter = require('./routes/todo');
-const API = '/api'
+
 var app = express();
 app.use(express.static(path.join(__dirname, '/public')));
 
@@ -30,10 +28,13 @@ app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
-
-// app.use('/', indexRouter);
+var usersRouter = require('./routes/users');
+var todoRouter = require('./routes/todo');
+var toolsRouter = require('./routes/tools');
+const API = '/api'
 app.use(API + '/users', usersRouter);
 app.use(API + '/todo', todoRouter);
+app.use(API + '/tools', toolsRouter);
 app.use(function (req, res, next) {
   next(createError(404));
 });
