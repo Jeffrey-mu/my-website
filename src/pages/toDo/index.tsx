@@ -7,6 +7,7 @@ import Link from '@docusaurus/Link';
 import dayjs from 'dayjs'
 import { getTodoData, addTodoData, delTodoData, getUsers } from '../../api/todo'
 import _ from 'lodash'
+import { HttpCode } from '../../enum/http'
 const stateName = ['未开始', '已收到', '进行中', '已完成']
 function formatState(item, prop) {
   if (prop === 'state') {
@@ -96,7 +97,7 @@ export default function App() {
   }
   async function verifyPassword(password: string) {
     let data = await getUsers({ password })
-    if (data.code === 200) {
+    if (data.code === HttpCode.success) {
       setShowAction(true)
     }
   }
@@ -233,7 +234,11 @@ export default function App() {
         description="Description will go into a meta tag in <head />">
         <ToDoTab />
         {
-          !showAction && <div style={{ float: 'right' }}>
+          !showAction && <div style={{
+            display: "flex",
+            justifyContent: "end",
+            margin: '10px'
+          }}>
             <input type="text" placeholder='输入密码解锁' value={password} onChange={(e) => {
               setPassword(e.target.value)
               setPasswordThrottle(e.target.value)
