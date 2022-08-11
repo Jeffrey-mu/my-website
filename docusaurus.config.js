@@ -94,6 +94,7 @@ const config = {
             label: '技术笔记',
           },
           { to: '/blog', label: '博客', position: 'left' },
+          { to: '/tools', label: '工具软件', position: 'right' },
           {
             href: 'https://github.com/Jeffrey-mu',
             label: 'GitHub',
