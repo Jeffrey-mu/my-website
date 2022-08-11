@@ -1,0 +1,106 @@
+/**
+ * CSS files with the .module.css suffix will be treated as CSS modules
+ * and scoped locally.
+ */
+
+.heroBanner {
+  padding: 4rem 0;
+  text-align: center;
+  position: relative;
+}
+
+@media screen and (max-width: 996px) {
+  .heroBanner {
+    padding: 2rem;
+  }
+}
+
+.main {
+  margin: 2px;
+  padding: 5px;
+  display: flex;
+  flex-wrap: wrap;
+  overflow: hidden;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+}
+@media screen and (max-width: 500px) {
+  .heroBanner {
+    padding: 2rem;
+  }
+  .tools {
+    min-width: 90% !important;
+  }
+  .main {
+  justify-content: center;
+}
+}
+.frame {
+  flex: 1;
+
+}
+.leftMmenu {
+  max-width: 200px;
+  height: 80vh;
+  overflow: auto;
+}
+.tools {
+  padding: 8px;
+  padding-top: 0;
+  border-left: 2px solid rgb(82, 196, 1);
+  color: rgb(25, 24, 24);
+  margin: 10px;
+  transition: all .2s;
+  cursor: pointer;
+}
+.tools p {
+  margin: 0;
+}
+.tools span {
+  font-weight: bold;
+}
+.tools:hover {
+ color: rgb(82, 196, 1);
+  transition: all .2s;
+  transform: scale(.98);
+}
+.active {
+  color: rgb(82, 196, 1);
+  transition: all .2s;
+  transform: scale(.98);
+}
+.toDoAction {
+  transition: all .2s;
+  padding-right: 20px;
+  display: flex;
+  flex-direction: row-reverse;
+}
+.toDoAction a {
+  margin-left: 20px;
+}
+.timeOut {
+  transition: all .2s;
+  border-color:red;
+  color: rgb(178, 98, 98);
+
+}
+.timeOut:hover {
+ box-shadow: 0px 8px 0px 0px red;
+}
+.ToDoTab {
+  display: flex;
+  justify-content: center;
+  margin-top: 5px;
+}
+.ToDoTab span {
+  margin-left: 10px;
+  display: inline-block;
+  padding: 0 10px;
+  cursor: pointer;
+  border: 1px solid #aeb9b3;
+  border-radius: 3px;
+}
+.ToDoTab span:hover {
+  color: #2e8555;
+}
+
