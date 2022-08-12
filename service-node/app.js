@@ -56,9 +56,7 @@ app.use(verifyTokenMiddle)
 
 // 注册路由
 setRoutes();
-console.log(0)
 app.use(function (req, res, next) {
-  console.log(1)
   next(createError(404));
 });
 
