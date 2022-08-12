@@ -7,7 +7,7 @@
 # Generated files
 .docusaurus
 .cache-loader
-
+/service-node/config/config
 # Misc
 .DS_Store
 .env.local
