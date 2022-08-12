@@ -1,126 +1,47 @@
 package main
 
 import (
-	"encoding/json"
-	"fmt"
-	"io/ioutil"
+	"database/sql"
 	"net/http"
-	"os"
+	"strconv"
 
+	_ "github.com/go-sql-driver/mysql"
 	"github.com/labstack/echo/v4"
 )
 
-var total int = 0
-
-type ToDo struct {
-	Title       string `json:"title" form:"title" query:"title"`
-	Name        string `json:"name" form:"name" query:"name"`
-	Description string `json:"description" form:"description" query:"description"`
-	Date        string `json:"date" form:"date" query:"date"`
-	ID          int    `json:"id" form:"id" query:"id"`
-	State       int    `json:"state" form:"state" query:"state"`
-}
-type User struct {
-	Name     string `json:"name" form:"name" query:"name"`
-	Password string `json:"password" form:"password" query:"password"`
-	Email    string `json:"email" form:"Email" query:"Email"`
-}
-
-const (
-	get       = "get"
-	edit      = "edit"
-	insert    = "insert"
-	delete    = "delete"
-	update    = "update"
-	toDoPath  = "./db/todo.json"
-	loginPath = "./db/login.json"
-)
+var DB *sql.DB
 
 func main() {
+	DB, _ = sql.Open("mysql", "admin:mc1009jf1018.@tcp(bj-cynosdbmysql-grp-0o0dqcfy.sql.tencentcdb.com:21729)/my-website") //
+
 	e := echo.New()
 	e.Static("/", "static")
-
 	e.GET("/todo", func(c echo.Context) error {
-		total += 1
-		fmt.Println(total)
-		c.Response().Header().Set("Access-Control-Allow-Origin", "*")
-		toType := c.QueryParam("toType")
-		var result string
-		switch toType {
-		case get:
-			result = getResult()
-			fmt.Println(JSONToMap[ToDo](result))
-			break
-		case edit:
-			break
-		case insert:
-			data := c.QueryParam("data")
-			result = insertResult(data)
-			break
+
+		data := getTodoAll()
+		result := TesultToDoModel{
+			Data: data,
+			Code: 200,
 		}
 		return c.JSON(http.StatusOK, result)
 	})
 
-	e.GET("/login", func(c echo.Context) error {
-		c.Response().Header().Set("Access-Control-Allow-Origin", "*")
-		name := c.QueryParam("name")
-		var result = []User{}
-		password := c.QueryParam("password")
-		if d, err := ioutil.ReadFile(loginPath); err == nil {
-			users := JSONToMap[User](string(d))
-			for k, v := range users {
-				if v.Name == name && v.Password == password {
-					result = users[k:1]
-				}
-			}
-			fmt.Println(result)
+	e.PUT("/todo", func(c echo.Context) error {
+		data := getTodoAll()
+		result := TesultToDoModel{
+			Data: data,
+			Code: 200,
 		}
 		return c.JSON(http.StatusOK, result)
+	})
+
+	e.DELETE("/todo", func(c echo.Context) error {
+		id, _ := strconv.Atoi(c.QueryParam("id"))
+		todo := ToDo{
+			ID: id,
+		}
+		todo.deleteById()
+		return c.JSON(http.StatusOK, "删除成功")
 	})
 	e.Logger.Fatal(e.Start(":1323"))
-}
-
-// 查询数据
-func getResult() string {
-	var result string
-	if d, err := ioutil.ReadFile(toDoPath); err == nil {
-		result = string(d)
-	}
-	return result
-}
-
-// 删除数据
-func deleteResult() string {
-	var result string
-	if d, err := ioutil.ReadFile(toDoPath); err == nil {
-		result = string(d)
-	}
-	return result
-}
-
-// 插入数据
-func insertResult(data string) string {
-	fmt.Println(data)
-	newData := JSONToMap[ToDo](data)
-	var result, _ = json.Marshal(append(JSONToMap[ToDo](getResult()), newData...))
-	f, err := os.OpenFile(toDoPath, os.O_WRONLY|os.O_TRUNC, 0600)
-	defer f.Close()
-	if err != nil {
-		fmt.Println(err.Error())
-	} else {
-		_, err = f.Write(result)
-	}
-	return string(result)
-}
-
-/*
-* 泛型函数 json转map
- */
-func JSONToMap[T any](str string) []T {
-	var tempMap []T
-	err := json.Unmarshal([]byte(str), &tempMap)
-	if err != nil {
-		panic(err)
-	}
-	return tempMap
 }
