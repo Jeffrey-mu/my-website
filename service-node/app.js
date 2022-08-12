@@ -28,13 +28,9 @@ app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
-var usersRouter = require('./routes/users');
-var todoRouter = require('./routes/todo');
-var toolsRouter = require('./routes/tools');
-const API = '/api'
-app.use(API + '/users', usersRouter);
-app.use(API + '/todo', todoRouter);
-app.use(API + '/tools', toolsRouter);
+
+// 注册路由
+setRoutes();
 app.use(function (req, res, next) {
   next(createError(404));
 });
@@ -49,5 +45,18 @@ app.use(function (err, req, res, next) {
   res.status(err.status || 500);
   res.render('error');
 });
+
+/**
+ *  注册路由
+ */
+function setRoutes() {
+  const API = '/api/';
+  const fileDir = 'routes';
+  const noIncludePath = ['index'];
+  const getPrefix = (path) => path.split('.')[0];
+  require('fs').readdirSync(path.join(__dirname, fileDir)).filter(path => noIncludePath.some(noPath => !path.startsWith(noPath))).forEach(api => {
+    app.use(API + getPrefix(api), require(path.join(__dirname, fileDir + '/') + getPrefix(api)));
+  });
+}
 
 module.exports = app;
