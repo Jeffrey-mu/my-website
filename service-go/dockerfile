@@ -1,0 +1,7 @@
+
+FROM golang:latest
+WORKDIR /Users/wjf/Desktop/learn/my-website-ts/service-go
+ADD . /Users/wjf/Desktop/learn/my-website-ts/service-go
+RUN go build .
+EXPOSE 1323
+ENTRYPOINT ["./main"]
