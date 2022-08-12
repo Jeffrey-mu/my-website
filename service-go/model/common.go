@@ -12,9 +12,14 @@ type ToDo struct {
 	State       int    `json:"state" form:"state" query:"state"`
 }
 type User struct {
-	Name     string `json:"name" form:"name" query:"name"`
-	Password string `json:"password" form:"password" query:"password"`
+	Id       int    `json:"id" form:"id" query:"id"`
+	Username string `json:"username" form:"username" query:"username"`
+	Sex      string `json:"sex" form:"sex" query:"sex"`
+	Date     string `json:"date" form:"date" query:"date"`
+	Hobby    int    `json:"hobby" form:"hobby" query:"hobby"`
+	Age      int    `json:"age" form:"age" query:"age"`
 	Email    string `json:"email" form:"Email" query:"Email"`
+	Password string `json:"password" form:"password" query:"password"`
 }
 
 type TesultTestModel struct {
