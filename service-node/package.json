@@ -3,9 +3,9 @@
   "version": "1.0.0",
   "description": "my-website-admin",
   "main": "index.js",
-  "type": "module",
   "scripts": {
-    "dev": "ts-node-dev --respawn --transpile-only ./src/app.ts"
+    "dev": "ts-node-dev --respawn --transpile-only ./src/app.ts",
+    "build": "unbuild"
   },
   "author": "Jeffrey",
   "license": "ISC",
@@ -27,6 +27,7 @@
     "sequelize": "^6.21.3",
     "swagger-jsdoc": "^6.1.0",
     "swagger-ui-express": "^4.1.6",
+    "unbuild": "^0.8.8",
     "zod": "^3.9.8"
   },
   "devDependencies": {
