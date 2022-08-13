@@ -1,5 +1,5 @@
-const { DataTypes } = require("sequelize");
-const sequelize = require("../db");
+import { DataTypes } from "sequelize";
+import sequelize from "../utils/connect";
 
 /**
  * 事件模型
@@ -40,4 +40,4 @@ const TodoModel = sequelize.define(
   }
 );
 
-module.exports = TodoModel;
+export default TodoModel;

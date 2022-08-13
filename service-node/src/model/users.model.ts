@@ -1,10 +1,8 @@
-const { DataTypes } = require("sequelize");
-const sequelize = require("../db");
-
+import { DataTypes } from "sequelize";
+import sequelize from "../utils/connect";
 /**
  * 用户模型
  */
-
 const UserModel = sequelize.define(
   "Todo",
   {
@@ -44,4 +42,4 @@ const UserModel = sequelize.define(
   }
 );
 
-module.exports = UserModel;
+export default UserModel;

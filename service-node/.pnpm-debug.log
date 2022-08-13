@@ -3,17 +3,19 @@
     "selected": 1
   },
   "1 error pnpm": {
-    "errno": 1,
     "code": "ELIFECYCLE",
-    "pkgid": "service-node@0.0.0",
-    "stage": "start",
-    "script": "node ./bin/www",
-    "pkgname": "service-node",
+    "errno": "ENOENT",
+    "syscall": "spawn",
+    "file": "sh",
+    "pkgid": "my-website-ts-admin@1.0.0",
+    "stage": "dev",
+    "script": "ts-node-dev --respawn --transpile-only ./src/app.ts",
+    "pkgname": "my-website-ts-admin",
     "err": {
       "name": "pnpm",
-      "message": "service-node@0.0.0 start: `node ./bin/www`\nExit status 1",
+      "message": "my-website-ts-admin@1.0.0 dev: `ts-node-dev --respawn --transpile-only ./src/app.ts`\nspawn ENOENT",
       "code": "ELIFECYCLE",
-      "stack": "pnpm: service-node@0.0.0 start: `node ./bin/www`\nExit status 1\n    at EventEmitter.<anonymous> (/opt/homebrew/lib/node_modules/pnpm/dist/pnpm.cjs:105736:20)\n    at EventEmitter.emit (node:events:527:28)\n    at ChildProcess.<anonymous> (/opt/homebrew/lib/node_modules/pnpm/dist/pnpm.cjs:92297:18)\n    at ChildProcess.emit (node:events:527:28)\n    at maybeClose (node:internal/child_process:1092:16)\n    at Process.ChildProcess._handle.onexit (node:internal/child_process:302:5)"
+      "stack": "pnpm: my-website-ts-admin@1.0.0 dev: `ts-node-dev --respawn --transpile-only ./src/app.ts`\nspawn ENOENT\n    at ChildProcess.<anonymous> (/opt/homebrew/lib/node_modules/pnpm/dist/pnpm.cjs:92290:22)\n    at ChildProcess.emit (node:events:527:28)\n    at maybeClose (node:internal/child_process:1092:16)\n    at Process.ChildProcess._handle.onexit (node:internal/child_process:302:5)"
     }
   },
   "2 warn pnpm:global": " Local package.json exists, but node_modules missing, did you mean to install?"

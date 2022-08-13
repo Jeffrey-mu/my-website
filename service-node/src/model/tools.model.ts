@@ -1,6 +1,5 @@
-const { DataTypes } = require("sequelize");
-const sequelize = require("../db");
-
+import { DataTypes } from "sequelize";
+import sequelize from "../utils/connect";
 /**
  * 工具数据模型
  */
@@ -32,4 +31,4 @@ const ToolsModel = sequelize.define(
   }
 );
 
-module.exports = ToolsModel;
+export default ToolsModel;
