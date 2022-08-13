@@ -1,7 +1,9 @@
-# Go文件操作大全
+# Go 文件操作大全
 
 ## 基础
+
 ### 1.创建空文件
+
 ```go
 package main
 import (
@@ -22,7 +24,8 @@ func main() {
 }
 ```
 
-### 2.Truncate文件
+### 2.Truncate 文件
+
 ```go
 package main
 import (
@@ -43,6 +46,7 @@ func main() {
 ```
 
 ### 3.得到文件信息
+
 ```go
 package main
 import (
@@ -69,6 +73,7 @@ func main() {
     fmt.Printf("System info: %+v\n\n", fileInfo.Sys())
 }
 ```
+
 ### 4.重命名和移动
 
 ```go
@@ -88,6 +93,7 @@ func main() {
 ```
 
 ### 5.删除文件
+
 ```go
 package main
 import (
@@ -103,6 +109,7 @@ func main() {
 ```
 
 ### 6.打开和关闭文件
+
 ```go
 package main
 import (
@@ -140,6 +147,7 @@ func main() {
 ```
 
 ### 7.检查文件是否存在
+
 ```go
 package main
 import (
@@ -164,6 +172,7 @@ func main() {
 ```
 
 ### 8.检查读写权限
+
 ```go
 package main
 import (
@@ -192,6 +201,7 @@ func main() {
 ```
 
 ### 9.改变权限、拥有者、时间戳
+
 ```go
 package main
 import (
@@ -222,10 +232,12 @@ func main() {
 ```
 
 ### 10.硬链接和软链接
-一个普通的文件是一个指向硬盘的inode的地方。
+
+一个普通的文件是一个指向硬盘的 inode 的地方。
 硬链接创建一个新的指针指向同一个地方。只有所有的链接被删除后文件才会被删除。硬链接只在相同的文件系统中才工作。你可以认为一个硬链接是一个正常的链接。
 
 symbolic link，又叫软连接，和硬链接有点不一样，它不直接指向硬盘中的相同的地方，而是通过名字引用其它文件。他们可以指向不同的文件系统中的不同文件。并不是所有的操作系统都支持软链接。
+
 ```go
 package main
 import (
@@ -301,6 +313,7 @@ func main() {
 ```
 
 ### 2.跳转到文件指定位置(Seek)
+
 ```go
 package main
 import (
@@ -342,8 +355,10 @@ func main() {
 ```
 
 ### 3.写文件
-可以使用os包写入一个打开的文件。
-因为Go可执行包是静态链接的可执行文件，你import的每一个包都会增加你的可执行文件的大小。其它的包如io、｀ioutil｀、｀bufio｀提供了一些方法，但是它们不是必须的。
+
+可以使用 os 包写入一个打开的文件。
+因为 Go 可执行包是静态链接的可执行文件，你 import 的每一个包都会增加你的可执行文件的大小。其它的包如 io、｀ ioutil ｀、｀ bufio ｀提供了一些方法，但是它们不是必须的。
+
 ```go
 package main
 import (
@@ -372,7 +387,9 @@ func main() {
 ```
 
 ### 4.快写文件
-ioutil包有一个非常有用的方法WriteFile()可以处理创建／打开文件、写字节slice和关闭文件一系列的操作。如果你需要简洁快速地写字节slice到文件中，你可以使用它。
+
+ioutil 包有一个非常有用的方法 WriteFile()可以处理创建／打开文件、写字节 slice 和关闭文件一系列的操作。如果你需要简洁快速地写字节 slice 到文件中，你可以使用它。
+
 ```go
 package main
 import (
@@ -388,7 +405,8 @@ func main() {
 ```
 
 ### 5.使用缓存写
-bufio包提供了带缓存功能的writer，所以你可以在写字节到硬盘前使用内存缓存。当你处理很多的数据很有用，因为它可以节省操作硬盘I/O的时间。在其它一些情况下它也很有用，比如你每次写一个字节，把它们攒在内存缓存中，然后一次写入到硬盘中，减少硬盘的磨损以及提升性能。
+
+bufio 包提供了带缓存功能的 writer，所以你可以在写字节到硬盘前使用内存缓存。当你处理很多的数据很有用，因为它可以节省操作硬盘 I/O 的时间。在其它一些情况下它也很有用，比如你每次写一个字节，把它们攒在内存缓存中，然后一次写入到硬盘中，减少硬盘的磨损以及提升性能。
 
 ```go
 package main
@@ -460,8 +478,10 @@ func main() {
 }
 ```
 
-### 6.读取最多N个字节
-os.File提供了文件操作的基本功能， 而io、ioutil、bufio提供了额外的辅助函数。
+### 6.读取最多 N 个字节
+
+os.File 提供了文件操作的基本功能， 而 io、ioutil、bufio 提供了额外的辅助函数。
+
 ```go
 package main
 import (
@@ -488,7 +508,8 @@ func main() {
 }
 ```
 
-### 8.快读至少N个字节
+### 8.快读至少 N 个字节
+
 ```go
 package main
 import (
@@ -513,7 +534,9 @@ func main() {
     log.Printf("Data read: %s\n", byteSlice)
 }
 ```
+
 ### 9.读取全部字节
+
 ```go
 package main
 import (
@@ -541,6 +564,7 @@ func main() {
 ```
 
 ### 10.快读到内存
+
 ```go
 package main
 import (
@@ -556,10 +580,12 @@ func main() {
     log.Printf("Data read: %s\n", data)
 }
 ```
+
 ### 11.使用缓存读
 
 有缓存写也有缓存读。
-缓存reader会把一些内容缓存在内存中。它会提供比os.File和io.Reader更多的函数,缺省的缓存大小是4096，最小缓存是16。
+缓存 reader 会把一些内容缓存在内存中。它会提供比 os.File 和 io.Reader 更多的函数,缺省的缓存大小是 4096，最小缓存是 16。
+
 ```go
 package main
 import (
@@ -609,18 +635,23 @@ func main() {
     //这个例子读取了很多行，所以test.txt应该包含多行文本才不至于出错
 }
 ```
+
 ### 12.使用 scanner
+
 `Scanner`是`bufio`包下的类型,在处理文件中以分隔符分隔的文本时很有用。
-通常我们使用换行符作为分隔符将文件内容分成多行。在CSV文件中，逗号一般作为分隔符。
+通常我们使用换行符作为分隔符将文件内容分成多行。在 CSV 文件中，逗号一般作为分隔符。
 `os.File`文件可以被包装成`bufio.Scanner`，它就像一个缓存`reader`。
 我们会调用`Scan()`方法去读取下一个分隔符，使用`Text()`或者`Bytes()`获取读取的数据。
 
 分隔符可以不是一个简单的字节或者字符，有一个特殊的方法可以实现分隔符的功能，以及将指针移动多少，返回什么数据。
 如果没有定制的`SplitFunc`提供，缺省的`ScanLines`会使用`newline`字符作为分隔符，其它的分隔函数还包括`ScanRunes`和`ScanWords`,皆在`bufio`包中。
+
 ```go
 type SplitFunc func(data []byte, atEOF bool) (advance int, token []byte, err error)
 ```
-下面的例子中，为一个文件创建了bufio.Scanner，并按照单词逐个读取：
+
+下面的例子中，为一个文件创建了 bufio.Scanner，并按照单词逐个读取：
+
 ```go
 package main
 
@@ -670,6 +701,7 @@ func main() {
 ```
 
 ## 压缩
+
 ### 1.打包(zip) 文件
 
 ```go
@@ -718,6 +750,7 @@ func main() {
 ```
 
 ### 2.抽取(unzip) 文件
+
 ```go
 // This example uses zip but standard library
 // also supports tar archives
@@ -779,6 +812,7 @@ func main() {
 ```
 
 ### 3.压缩文件
+
 ```go
 // 这个例子中使用gzip压缩格式，标准库还支持zlib, bz2, flate, lzw
 package main
@@ -805,6 +839,7 @@ func main() {
 ```
 
 ### 4.解压缩文件
+
 ```go
 // 这个例子中使用gzip压缩格式，标准库还支持zlib, bz2, flate, lzw
 package main
@@ -840,13 +875,16 @@ func main() {
     }
 }
 ```
+
 ## 其他
 
 ### 1.临时文件和目录
-ioutil提供了两个函数: TempDir() 和 TempFile()。
+
+ioutil 提供了两个函数: TempDir() 和 TempFile()。
 使用完毕后，调用者负责删除这些临时文件和文件夹。
 有一点好处就是当你传递一个空字符串作为文件夹名的时候，它会在操作系统的临时文件夹中创建这些项目（/tmp on Linux）。
 os.TempDir()返回当前操作系统的临时文件夹。
+
 ```go
 package main
 import (
@@ -887,7 +925,8 @@ func main() {
 
 ```
 
-### 2.通过HTTP下载文件
+### 2.通过 HTTP 下载文件
+
 ```go
 package main
 import (
@@ -916,6 +955,7 @@ func main() {
 ```
 
 ### 3.哈希和摘要
+
 ```go
 package main
 import (
@@ -941,9 +981,10 @@ func main() {
 }
 ```
 
-上面的例子复制整个文件内容到内存中，传递给hash函数。
-另一个方式是创建一个hash writer, 使用Write、WriteString、Copy将数据传给它。
-下面的例子使用 md5 hash,但你可以使用其它的Writer。
+上面的例子复制整个文件内容到内存中，传递给 hash 函数。
+另一个方式是创建一个 hash writer, 使用 Write、WriteString、Copy 将数据传给它。
+下面的例子使用 md5 hash,但你可以使用其它的 Writer。
+
 ```go
 package main
 import (
@@ -973,4 +1014,4 @@ func main() {
 ```
 
 - 参考
-[Go Standard Library Documentation](https://golang.org/pkg)
+  [Go Standard Library Documentation](https://golang.org/pkg)

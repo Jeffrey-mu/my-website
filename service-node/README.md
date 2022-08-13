@@ -1,8 +1,8 @@
 # Node Express 项目
 
-
 ### 安装依赖
-- 推荐使用ni工具
+
+- 推荐使用 ni 工具
 
 ```
 $ pnpm install
@@ -15,15 +15,16 @@ $ pnpm install
 $ pnpm dev
 ```
 
-
 ### 部署
 
 - 使用`pm2`进行部署
+
 ```
 $ pm2 start app
 ```
 
 ## 项目目录
+
 ```
 <!--  -->
 

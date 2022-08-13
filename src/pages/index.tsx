@@ -1,30 +1,30 @@
-import React from 'react';
-import clsx from 'clsx';
-import Link from '@docusaurus/Link';
-import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
-import Layout from '@theme/Layout';
-import HomepageFeatures from '@site/src/components/HomepageFeatures';
+import React from 'react'
+import clsx from 'clsx'
+import Link from '@docusaurus/Link'
+import useDocusaurusContext from '@docusaurus/useDocusaurusContext'
+import Layout from '@theme/Layout'
+import HomepageFeatures from '@site/src/components/HomepageFeatures'
 // import 'antd/dist/antd.css'
 // import 'antd/dist/antd.dark.css'
-import styles from './index.module.css';
+import styles from './index.module.css'
 function buttonItem(options) {
-  return <>
-    <div className={styles.button} key={options.url}>
-      <Link
-        className="button button--secondary button--lg"
-        to={options.url}>
-        {options.label}
-      </Link>
-    </div>
-  </>
+  return (
+    <>
+      <div className={styles.button} key={options.url}>
+        <Link className="button button--secondary button--lg" to={options.url}>
+          {options.label}
+        </Link>
+      </div>
+    </>
+  )
 }
 const routes = [
   { label: '待办事项', url: 'todo' },
   { label: '写文章 ✏️', url: 'todo' },
-  { label: '我的项目', url: 'myProject' }
+  { label: '我的项目', url: 'myProject' },
 ]
 function HomepageHeader() {
-  const { siteConfig } = useDocusaurusContext();
+  const { siteConfig } = useDocusaurusContext()
   return (
     <header className={clsx('hero hero--primary', styles.heroBanner)}>
       <div className="container">
@@ -35,19 +35,20 @@ function HomepageHeader() {
         </div>
       </div>
     </header>
-  );
+  )
 }
 
 export default function Home(): JSX.Element {
-  const { siteConfig } = useDocusaurusContext();
+  const { siteConfig } = useDocusaurusContext()
   return (
     <Layout
       title={`Hello from ${siteConfig.title}`}
-      description="Description will go into a meta tag in <head />">
+      description="Description will go into a meta tag in <head />"
+    >
       <HomepageHeader />
       <main>
         <HomepageFeatures />
       </main>
     </Layout>
-  );
+  )
 }

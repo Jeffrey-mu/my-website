@@ -1,10 +1,10 @@
-import { DataTypes } from "sequelize";
-import sequelize from "../utils/connect";
+import { DataTypes } from 'sequelize'
+import sequelize from '../utils/connect'
 /**
  * 用户模型
  */
 const UserModel = sequelize.define(
-  "Todo",
+  'Todo',
   {
     id: {
       type: DataTypes.BIGINT,
@@ -35,11 +35,11 @@ const UserModel = sequelize.define(
     },
   },
   {
-    tableName: "users",
+    tableName: 'users',
     paranoid: true,
-    deletedAt: "isDelete",
+    deletedAt: 'isDelete',
     timestamps: false,
   }
-);
+)
 
-export default UserModel;
+export default UserModel

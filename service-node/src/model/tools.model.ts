@@ -1,11 +1,11 @@
-import { DataTypes } from "sequelize";
-import sequelize from "../utils/connect";
+import { DataTypes } from 'sequelize'
+import sequelize from '../utils/connect'
 /**
  * 工具数据模型
  */
 
 const ToolsModel = sequelize.define(
-  "Tools",
+  'Tools',
   {
     id: {
       type: DataTypes.BIGINT,
@@ -24,11 +24,11 @@ const ToolsModel = sequelize.define(
     },
   },
   {
-    tableName: "tools",
+    tableName: 'tools',
     paranoid: true,
-    deletedAt: "isDelete",
+    deletedAt: 'isDelete',
     timestamps: false,
   }
-);
+)
 
-export default ToolsModel;
+export default ToolsModel

@@ -32,12 +32,11 @@
     min-width: 90% !important;
   }
   .main {
-  justify-content: center;
-}
+    justify-content: center;
+  }
 }
 .frame {
   flex: 1;
-
 }
 .leftMmenu {
   max-width: 200px;
@@ -50,7 +49,7 @@
   border-left: 2px solid rgb(82, 196, 1);
   color: rgb(25, 24, 24);
   margin: 10px;
-  transition: all .2s;
+  transition: all 0.2s;
   cursor: pointer;
 }
 .tools p {
@@ -60,17 +59,17 @@
   font-weight: bold;
 }
 .tools:hover {
- color: rgb(82, 196, 1);
-  transition: all .2s;
-  transform: scale(.98);
+  color: rgb(82, 196, 1);
+  transition: all 0.2s;
+  transform: scale(0.98);
 }
 .active {
   color: rgb(82, 196, 1);
-  transition: all .2s;
-  transform: scale(.98);
+  transition: all 0.2s;
+  transform: scale(0.98);
 }
 .toDoAction {
-  transition: all .2s;
+  transition: all 0.2s;
   padding-right: 20px;
   display: flex;
   flex-direction: row-reverse;
@@ -79,13 +78,12 @@
   margin-left: 20px;
 }
 .timeOut {
-  transition: all .2s;
-  border-color:red;
+  transition: all 0.2s;
+  border-color: red;
   color: rgb(178, 98, 98);
-
 }
 .timeOut:hover {
- box-shadow: 0px 8px 0px 0px red;
+  box-shadow: 0px 8px 0px 0px red;
 }
 .ToDoTab {
   display: flex;
@@ -103,4 +101,3 @@
 .ToDoTab span:hover {
   color: #2e8555;
 }
-

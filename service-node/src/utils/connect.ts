@@ -1,4 +1,4 @@
-import { Sequelize } from 'sequelize';
+import { Sequelize } from 'sequelize'
 import config from 'config'
 import logger from './logger'
 interface MysqlConfig {
@@ -10,27 +10,30 @@ interface MysqlConfig {
 }
 // const mysqlConfig = config.get<MysqlConfig>('mysqlConfig')
 const mysqlConfig = {
-  database: "my-website",
-  username: "admin",
-  password: "mc1009jf1018.",
-  host: "bj-cynosdbmysql-grp-0o0dqcfy.sql.tencentcdb.com",
+  database: 'my-website',
+  username: 'admin',
+  password: 'mc1009jf1018.',
+  host: 'bj-cynosdbmysql-grp-0o0dqcfy.sql.tencentcdb.com',
   port: 21729,
 }
 const sequelize = new Sequelize(
-  mysqlConfig.database, mysqlConfig.username,
-  mysqlConfig.password, {
-  host: mysqlConfig.host,
-  port: mysqlConfig.port,
-  dialect: 'mysql'
-});
+  mysqlConfig.database,
+  mysqlConfig.username,
+  mysqlConfig.password,
+  {
+    host: mysqlConfig.host,
+    port: mysqlConfig.port,
+    dialect: 'mysql',
+  }
+)
 // 测试连接
 sequelize
   .authenticate()
   .then(() => {
-    logger.info("MySQL client connected");
+    logger.info('MySQL client connected')
   })
   .catch((e) => {
-    logger.error("Unable to connect to MySQL", e);
-  });
+    logger.error('Unable to connect to MySQL', e)
+  })
 
-export default sequelize;
+export default sequelize

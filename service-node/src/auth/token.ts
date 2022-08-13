@@ -1,4 +1,4 @@
-import jwt from "jsonwebtoken"
+import jwt from 'jsonwebtoken'
 import { Request, Response, NextFunction } from 'express'
 //撒盐，加密时候混淆
 const secret = '113Bmongojsdalkfnxcvmas'
@@ -8,7 +8,7 @@ const secret = '113Bmongojsdalkfnxcvmas'
 export function createToken(info: object) {
   let token = jwt.sign(info, secret, {
     //Token有效时间 单位s
-    expiresIn: 60 * 60 * 10
+    expiresIn: 60 * 60 * 10,
   })
   return token
 }
@@ -27,16 +27,21 @@ export function verifyToken(token: string) {
 }
 const whiteList = ['/api/login']
 
-export function verifyTokenMiddle(req: Request, res: Response, next: NextFunction) {
+export function verifyTokenMiddle(
+  req: Request,
+  res: Response,
+  next: NextFunction
+) {
   if (!whiteList.includes(req.url)) {
     // @ts-ignore
-    verifyToken(req.headers.authorization).then(res => {
-      next()
-    }).catch(e => {
-      res.status(401).send('invalid token')
-    })
+    verifyToken(req.headers.authorization)
+      .then((res) => {
+        next()
+      })
+      .catch((e) => {
+        res.status(401).send('invalid token')
+      })
   } else {
     next()
   }
 }
-

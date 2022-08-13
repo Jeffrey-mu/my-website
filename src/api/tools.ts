@@ -1,7 +1,7 @@
 import request from '../utils/request'
 /**
  * 查询列表
-*/
+ */
 export interface ToolsDataModel {
   title: string
   url: string

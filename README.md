@@ -3,6 +3,7 @@
 该网站是使用现代静态网站生成器 [Docusaurus 2](https://docusaurus.io/) 构建的。
 
 ## 项目目录
+
 ```
 README.md
 service-node      Node服务端代码
@@ -12,6 +13,7 @@ blog              博客
 src               项目源码
 build             构建产物
 ```
+
 ### Installation
 
 ```

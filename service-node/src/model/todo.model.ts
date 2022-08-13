@@ -1,11 +1,11 @@
-import { DataTypes } from "sequelize";
-import sequelize from "../utils/connect";
+import { DataTypes } from 'sequelize'
+import sequelize from '../utils/connect'
 
 /**
  * 事件模型
  */
 const TodoModel = sequelize.define(
-  "Todo",
+  'Todo',
   {
     id: {
       type: DataTypes.BIGINT,
@@ -33,11 +33,11 @@ const TodoModel = sequelize.define(
     },
   },
   {
-    tableName: "todo",
+    tableName: 'todo',
     paranoid: true,
-    deletedAt: "isDelete",
+    deletedAt: 'isDelete',
     timestamps: false,
   }
-);
+)
 
-export default TodoModel;
+export default TodoModel
