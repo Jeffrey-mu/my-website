@@ -2,10 +2,9 @@
 
 
 ### 安装依赖
+- 推荐使用ni工具
 
 ```
-$ yarn
-$ npm install
 $ pnpm install
 
 ```
@@ -21,7 +20,7 @@ $ yarn | npm | pnpm start
 
 - 使用`pm2`进行部署
 ```
-$ pm2 start ./bin/www
+$ pm2 start build/a p p p
 ```
 
 ## 项目目录
