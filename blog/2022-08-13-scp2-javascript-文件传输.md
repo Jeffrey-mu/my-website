@@ -1,6 +1,6 @@
 ---
-slug: scp2 代码格式化工具推荐
-title: scp2 代码格式化工具推荐
+slug: scp2-javascript-文件传输.
+title: scp2-javascript-文件传输.
 authors: Jeffrey
 tags: [scp2, javascript, ftp]
 ---
