@@ -12,7 +12,7 @@ $ pnpm install
 ### 启动项目
 
 ```
-$ yarn | npm | pnpm start
+$ pnpm dev
 ```
 
 
@@ -20,11 +20,12 @@ $ yarn | npm | pnpm start
 
 - 使用`pm2`进行部署
 ```
-$ pm2 start build/a p p p
+$ pm2 start app
 ```
 
 ## 项目目录
 ```
+<!--  -->
 
 README.md
 bin          启动路径
@@ -35,4 +36,5 @@ router       路由
 app.go       入口
 public       静态资源
 db           sequelize orm框架
+<!--  -->
 ```
