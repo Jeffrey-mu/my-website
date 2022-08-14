@@ -8,14 +8,8 @@ interface MysqlConfig {
   host: string
   port: number
 }
-// const mysqlConfig = config.get<MysqlConfig>('mysqlConfig')
-const mysqlConfig = {
-  database: 'my-website',
-  username: 'admin',
-  password: 'mc1009jf1018.',
-  host: 'bj-cynosdbmysql-grp-0o0dqcfy.sql.tencentcdb.com',
-  port: 21729,
-}
+const mysqlConfig = config.get<MysqlConfig>('mysqlConfig')
+
 const sequelize = new Sequelize(
   mysqlConfig.database,
   mysqlConfig.username,
