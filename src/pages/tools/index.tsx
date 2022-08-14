@@ -35,9 +35,9 @@ export default function App() {
   }, [])
 
   async function getData() {
-    let data = await getToolsData()
-    setTools(data)
-    setActive(data[0].url)
+    let { result } = await getToolsData()
+    setTools(result)
+    setActive(result[0].url)
   }
   function handleMenu(url: string) {
     setActive(url)

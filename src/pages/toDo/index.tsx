@@ -93,7 +93,7 @@ export default function App() {
 
   async function getData(options?: FetchOptions) {
     let data = await getTodoData()
-    setCard(data)
+    setCard(data.result)
     setShowAdd(false)
   }
   async function verifyPassword(password: string) {

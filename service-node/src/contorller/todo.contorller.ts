@@ -7,7 +7,7 @@ import {
 } from '../servive/todo.service'
 import { SuccessResult, ErrorResult } from '../model/resultModel'
 export async function getTodoHandler(req: Request, res: Response) {
-  res.send(await getTodo())
+  res.send(new SuccessResult(await getTodo()))
 }
 
 export async function putTodoHandler(req: Request, res: Response) {
