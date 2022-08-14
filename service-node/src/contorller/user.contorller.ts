@@ -5,7 +5,7 @@ import { SuccessResult, ErrorResult } from '../model/resultModel'
 export async function getHandler(req: Request, res: Response) {
   try {
     const query = {
-      password: req.params.password,
+      password: req.query.password,
     }
     const user = await getUser(query)
     res.send(new SuccessResult(user))
