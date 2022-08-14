@@ -61,7 +61,20 @@ export default function App() {
   function Iframe() {
     return (
       <>
-        <iframe className={style.frame} src={active}></iframe>
+        <div style={{ display: 'flex' }}>
+          <iframe className={style.frame} src={active}></iframe>
+          <div
+            style={{
+              padding: '10px',
+              flex: 1,
+              textAlign: 'center',
+            }}
+          >
+            滑<br />
+            动 <br />
+            区 <br />域
+          </div>
+        </div>
       </>
     )
   }

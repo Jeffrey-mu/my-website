@@ -1,0 +1,75 @@
+/**
+ * CSS files with the .module.css suffix will be treated as CSS modules
+ * and scoped locally.
+ */
+
+.heroBanner {
+  padding: 4rem 0;
+  text-align: center;
+  position: relative;
+}
+
+@media screen and (max-width: 996px) {
+  .heroBanner {
+    padding: 2rem;
+  }
+}
+
+.rightContent {
+  border-left: 1px solid rgb(255, 255, 255);
+  flex: 1;
+  display: flex;
+  flex-wrap: wrap;
+}
+.card {
+  width: 300px;
+  margin: 5px;
+  display: flex;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  height: 200px;
+  flex-direction: column;
+  transition: all 0.2s;
+  cursor: pointer;
+}
+.card:hover {
+  box-shadow: 5px 5px 5px 5px rgba(180, 180, 186, 0.2);
+  transform: scale(1.02);
+  transition: all 0.2s;
+}
+
+.cardContent {
+  display: flex;
+  flex: 1;
+  padding: 20px;
+}
+.cardImage {
+  border-radius: 10px;
+  flex: 0.4;
+  height: 80%;
+  overflow: hidden;
+}
+.cardImage img {
+  height: 100%;
+}
+.cardR {
+  flex: 0.6;
+  padding-left: 15px;
+}
+.cardR div {
+  font-weight: bold;
+  font-size: 16px;
+}
+.cardR:hover div {
+  color: #2e8555;
+  transition: all 0.2s;
+}
+.cardR p {
+  font-size: 14px;
+}
+.cardLink {
+  display: flex;
+  border-top: 1px solid #ccc;
+  justify-content: space-between;
+  padding: 0 10px;
+}
