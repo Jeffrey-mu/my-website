@@ -24,6 +24,9 @@ const ResourceModel = sequelize.define(
     description: {
       type: DataTypes.STRING,
     },
+    create_date: {
+      type: DataTypes.STRING,
+    },
   },
   {
     tableName: 'resource',
