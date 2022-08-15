@@ -5,33 +5,35 @@ import toolsStyle from '../tools/index.module.css'
 import style from './index.module.css'
 import clsx from 'clsx'
 import {
-  getLearnData,
-  getLearnDataType,
-  LearnDataTypeModel,
-  LearnDataModel,
-} from '../../api/learning_resource'
+  getResourceData,
+  getResourceType,
+  ResourceDataModel,
+  ResourceTypeModel,
+} from '../../api/resource'
 
 export default function App() {
-  const [learnData, setLearnData] = useState<LearnDataModel[]>([])
-  const [learnDataType, setLearnDataType] = useState<LearnDataTypeModel[]>([])
+  const [resourceData, setResourceData] = useState<ResourceDataModel[]>([])
+  const [resourceDataType, setResourceDataType] = useState<ResourceTypeModel[]>(
+    []
+  )
   const [active, setActive] = useState<number>(1)
   useEffect(() => {
     getDataType()
   }, [])
   async function getDataType() {
-    let data = await getLearnDataType()
-    setLearnDataType(data)
+    let data = await getResourceType()
+    setResourceDataType(data)
     getData()
   }
   async function getData() {
-    let data = await getLearnData()
-    setLearnData(data)
+    let { result } = await getResourceData()
+    setResourceData(result)
   }
   function handleMenu(id: number) {
     setActive(id)
   }
   function Menu() {
-    return learnDataType.map((item, index) => (
+    return resourceDataType.map((item, index) => (
       <div
         onClick={() => handleMenu(item.id)}
         className={clsx(
@@ -47,7 +49,7 @@ export default function App() {
     ))
   }
   function Card() {
-    return learnData.map((item) => (
+    return resourceData.map((item) => (
       <>
         <section className={style.card}>
           <div className={style.cardContent}>
@@ -56,13 +58,25 @@ export default function App() {
             </div>
             <div className={style.cardR}>
               <div>{item.title}</div>
-              <p>{item.description}</p>
+              {item.description.length > 50 ? (
+                <div title={item.description}>
+                  {item.description.slice(0, 50)}..
+                </div>
+              ) : (
+                <div>{item.description}</div>
+              )}
             </div>
           </div>
           <div className={style.cardLink}>
-            <a href="#">喜欢</a>
-            <a href="#">分享</a>
-            <a href={item.url}>访问</a>
+            <a href="#" target="_blank">
+              喜欢
+            </a>
+            <a href="#" target="_blank">
+              分享
+            </a>
+            <a href={item.url} target="_blank">
+              访问
+            </a>
           </div>
         </section>
       </>

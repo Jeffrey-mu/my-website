@@ -92,7 +92,7 @@ const config = {
             label: '技术笔记',
           },
           { to: '/blog', label: '博客', position: 'left' },
-          { to: '/learning_resource', label: '资源推荐', position: 'right' },
+          { to: '/resource', label: '资源推荐', position: 'right' },
           { to: '/tools', label: '工具软件', position: 'right' },
           {
             href: 'https://github.com/Jeffrey-mu',

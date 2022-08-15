@@ -3,6 +3,7 @@ import validateResource from './middleware/validateResource'
 import { getHandler } from './contorller/user.contorller'
 import { getToolsHandle } from './contorller/tools.contorller'
 import { getTodoHandler, putTodoHandler } from './contorller/todo.contorller'
+import { getResourceHandler } from './contorller/resource.contorller'
 import { createUserSchema } from './schema/user.schema'
 
 function routes(app: Express) {
@@ -32,6 +33,7 @@ function routes(app: Express) {
   app.get('/api/tools', getToolsHandle)
   app.get('/api/todo', getTodoHandler)
   app.put('/api/todo', putTodoHandler)
+  app.get('/api/resource', getResourceHandler)
   /**
    * @openapi
    * '/api/user':
