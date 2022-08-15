@@ -3,7 +3,10 @@ import validateResource from './middleware/validateResource'
 import { getHandler } from './contorller/user.contorller'
 import { getToolsHandle } from './contorller/tools.contorller'
 import { getTodoHandler, putTodoHandler } from './contorller/todo.contorller'
-import { getResourceHandler, getAddResourceHandler } from './contorller/resource.contorller'
+import {
+  getResourceHandler,
+  getAddResourceHandler,
+} from './contorller/resource.contorller'
 import { createUserSchema } from './schema/user.schema'
 
 function routes(app: Express) {

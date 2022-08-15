@@ -24,7 +24,12 @@ interface AddResourceParams {
   img: string
   url: string
 }
-export async function addResource({ title, img, url, description }: AddResourceParams) {
+export async function addResource({
+  title,
+  img,
+  url,
+  description,
+}: AddResourceParams) {
   const Resource = await ResourceModel.create({
     title,
     img,
