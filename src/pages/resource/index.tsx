@@ -90,7 +90,7 @@ export default function App() {
         description="Description will go into a meta tag in <head />"
       >
         <main className={clsx(toolsStyle.main, style.main)}>
-          <div className={toolsStyle.leftMmenu}>{Menu()}</div>
+          {/* <div className={toolsStyle.leftMmenu}>{Menu()}</div> */}
           <div className={style.rightContent}>{Card()}</div>
         </main>
       </Layout>

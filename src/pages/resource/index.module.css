@@ -22,8 +22,8 @@
   flex-wrap: wrap;
 }
 .card {
-  width: 350px;
-  margin: 5px;
+  width: 400px;
+  margin: 10px;
   display: flex;
   border: 1px solid #ccc;
   border-radius: 10px;
@@ -45,8 +45,8 @@
 }
 .cardImage {
   border-radius: 10px;
-  flex: 0.35;
-  height: 80%;
+  width: 100px;
+  height: 100px;
   overflow: hidden;
 }
 .cardImage img {
@@ -54,7 +54,7 @@
   width: 100%;
 }
 .cardR {
-  flex: 0.65;
+  flex: 1;
   padding-left: 15px;
 }
 .cardR div {
