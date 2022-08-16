@@ -1,0 +1,179 @@
+---
+slug: svelte-入门.
+title: Svelte 前端框架.
+authors: Jeffrey
+tags: [svelte, javascript, framework]
+---
+
+## 1 介绍
+
+- Svelte 是一种构建用户界面的全新方法。传统框架（如 React 和 Vue）在浏览器中完成大部分工作，而 Svelte 将这些工作转移到编译步骤中，在您构建应用程序时发生。
+- Svelte 没有使用虚拟 DOM diffing 之类的技术，而是编写了在应用程序状态发生变化时以手术方式更新 DOM 的代码。
+- [少写代码](https://svelte.dev/tutorial/basics) | [虚拟 DOM 是纯粹的开销](https://svelte.dev/blog/virtual-dom-is-pure-overhead) | [真正的反应](https://svelte.dev/blog/svelte-3-rethinking-reactivity)
+
+```bash
+npm create vite@latest myapp -- --template svelte
+cd myapp
+npm install
+npm run dev
+```
+
+## 2 单文件结构
+
+- 单页面的创建是 文件名.svelte 后缀名为 svelte, 所以需要学习一些 svelte 语法
+- svelte 页面的结构由三部分组成，`script` `element` `style` 如下代码所示
+
+```html title="index.svelte"
+<!-- 支持ts语法 -->
+<script lang="ts">
+  let msg: string = 'welcome to svelte'
+</script>
+<div>{msg}</div>
+<style></style>
+```
+
+## 3 语法
+
+### 3.1 数据渲染
+
+```javascript
+<script lang="ts">
+  let msg:string = "welcome to svelte"
+</script>
+<div>
+  {msg}
+</div>
+```
+
+### 3.2 数据依赖
+
+```html
+<script>
+  let count = 0
+  $: doubled = count * 2
+</script>
+<div class="card">
+  <p>{count}</p>
+  <p>{count} doubled is {doubled}</p>
+</div>
+```
+
+### 3.3 条件渲染
+
+```ts
+<script lang="ts">
+  let msg:string = "welcome to svelte"
+  let num:number =1
+</script>
+{#if num == 1}
+  <h1>{msg}</h1>
+{:else if num == 2}
+  <h1>defualt</h1>
+{:else}
+  <h1>{msg}</h1>
+{/if}
+```
+
+### 3.4 循环渲染
+
+```ts
+<script lang="ts">
+  let array:array = [{name: "jack", id: 1}, {name: "tom", id: 2}]
+  let num:number =1
+</script>
+// item 迭代每一项 index 下标 (item.id) 更新标识，提高性能
+// 支持解构 如{#each array as {id, name}, index}
+{#each array as item, index (item.id)}
+  <h2>{item.name}</h2>
+{/each}
+```
+
+### 3.4 异步 Promise
+
+```ts
+{#await promise()}
+  <p>...waiting</p>
+{:then number}
+  <p>The number is {number}</p>
+{:catch error}
+  <p style="color: red">{error.message}</p>
+{/await}
+```
+
+### 3.5 事件绑定
+
+```html
+<script>
+  let count = 0
+  function incrementCount() {
+    count += 1
+  }
+</script>
+<!-- 添加修饰符 只调用一次 -->
+<button on:click|once="{incrementCount}">Clicked {count}</button>
+```
+
+- 支持修饰符如 once | preventDefault | stopPropagation | passive | nonpassive | self | trusted
+- 支持 on:click|once|capture={...}
+
+### 3.6 组件部分
+
+- 组件命名需首字母大写
+
+```html title="Card.svelte"
+<script>
+  // 接收参数
+  export let msg: string
+  // 默认参数 只需对变量赋值
+  export let msg: string = 'default'
+</script>
+
+<div class="card">
+  <h2>{msg}</h2>
+</div>
+```
+
+```html title="index.svelte"
+<script>
+  // 引入组件
+  import Card from './Card.svelte'
+</script>
+
+<div class="card">
+  <!-- 使用组件 传递参数 -->
+  <Card msg="hello card" />
+</div>
+```
+
+### 3.7 表单元素绑定值
+
+- 切记是 bind:value={变量} 不是 value={变量}
+
+```html
+<script>
+  let name = 'world'
+</script>
+<input bind:value="{name}" />
+
+<h1>Hello {name}!</h1>
+```
+
+### 3.8 元素绑定属性
+
+- bind:innerHTML = {html}
+- bind:clientWidth={w}
+- bind:clientHeight={h}
+
+### 3.9 生命周期
+
+- 生命周期函数是从中 svelte 获取例如
+
+```ts
+import { onMount, afterUpdate } from 'svelte'
+```
+
+- [onMount](https://svelte.dev/tutorial/onMount) 组件挂载
+- [onDestroy](https://svelte.dev/tutorial/ondestroy) 组件销毁
+- [onDestroy](https://svelte.dev/tutorial/ondestroy) 组件销毁
+- beforeUpdate afterUpdate 组件更新前后 [参考](https://svelte.dev/tutorial/update)
+- [tick](https://svelte.dev/tutorial/tick) 它返回一个 promise，该 promise 将在任何挂起的状态更改应用于 DOM 后立即进行解析（如果没有挂起状态更改，则立即进行解析）
