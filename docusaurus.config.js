@@ -56,6 +56,7 @@ const config = {
   themeConfig:
     /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
     ({
+      metadata: [{ name: 'keywords', content: '技术文章, 个人博客, 前端开发, 工具推荐, 资源分享, typescript, golang, javascript, vue, svelte' }],
       algolia: {
         // Algolia 提供的应用 ID
         appId: 'W33HCJSIAT',
