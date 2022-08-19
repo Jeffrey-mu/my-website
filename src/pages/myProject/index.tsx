@@ -3,7 +3,11 @@ import Layout from '@theme/Layout'
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext'
 import style from './index.module.css'
 import clsx from 'clsx'
-import { getMyProjectData, MyProjectModel } from '../../api/myProject'
+import {
+  getMyProjectData,
+  MyProjectModel,
+  addMyProjectData,
+} from '../../api/myProject'
 const stateName = ['未开始', '已收到', '进行中', '已完成']
 function formatState(item, prop) {
   if (prop === 'state') {
@@ -19,12 +23,6 @@ interface FetchOptions<T = any> {
 }
 export default function App() {
   const [card, setCard] = useState<MyProjectModel[]>([])
-  const [active, setActive] = useState<number>(-1)
-  function toExceedTheTimeLimit(time: string) {
-    let nowTime = +new Date()
-    let targetTime = +new Date(time)
-    return nowTime >= targetTime
-  }
   interface DataInfoKV {
     prop: string
     label: string
@@ -48,17 +46,12 @@ export default function App() {
   }, [])
 
   async function getData(options?: FetchOptions) {
-    let data = await getMyProjectData()
-    setCard(data)
+    let { result } = await getMyProjectData()
+    setCard(result)
   }
   function Card() {
     return card.map((item, index) => (
-      <div
-        title="点击选择"
-        onClick={() => setActive(item.id)}
-        className={clsx(style.card)}
-        key={item.id}
-      >
+      <div title="点击选择" className={clsx(style.card)} key={item.url}>
         <p>{index + 1}</p>
         {infoKV.map((el, index) => (
           <>

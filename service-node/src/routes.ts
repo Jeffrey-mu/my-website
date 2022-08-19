@@ -2,6 +2,10 @@ import type { Express, Response, Request } from 'express'
 import validateResource from './middleware/validateResource'
 import { getHandler } from './contorller/user.contorller'
 import { getToolsHandle } from './contorller/tools.contorller'
+import {
+  getProjectHandler,
+  addProjectHandler,
+} from './contorller/project.contorller'
 import { getTodoHandler, putTodoHandler } from './contorller/todo.contorller'
 import {
   getResourceHandler,
@@ -41,6 +45,10 @@ function routes(app: Express) {
 
   app.get('/api/resource', getResourceHandler)
   app.post('/api/resource', getAddResourceHandler)
+
+  app.get('/api/project', getProjectHandler)
+  app.put('/api/project', addProjectHandler)
+
   /**
    * @openapi
    * '/api/user':

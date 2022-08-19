@@ -1,9 +1,13 @@
 import request from '../utils/request'
+enum Api {
+  Todo = '/todo',
+}
 /**
  * 查询列表
  */
+
 export function getTodoData() {
-  return request.get('/todo')
+  return request.get(Api.Todo)
 }
 
 /**
@@ -11,7 +15,7 @@ export function getTodoData() {
  @param options 插入数据
 */
 export function addTodoData(data) {
-  return request.put('/todo', data)
+  return request.put(Api.Todo, data)
 }
 
 /**
@@ -19,7 +23,7 @@ export function addTodoData(data) {
  @param id 删除id
 */
 export function delTodoData(data) {
-  return request.del('/todo', data)
+  return request.del(Api.Todo, data)
 }
 
 export function getUsers(data) {
