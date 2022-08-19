@@ -51,24 +51,36 @@ export default function App() {
   }
   function Card() {
     return card.map((item, index) => (
-      <div title="点击选择" className={clsx(style.card)} key={item.url}>
-        <p>{index + 1}</p>
-        {infoKV.map((el, index) => (
-          <>
-            <p key={index}>
-              {' '}
-              <span>{el.label}：</span>
-              {el.prop === 'url' ? (
-                <a href={formatState(item, el.prop)} target="_blank">
-                  点击前往
-                </a>
+      <>
+        <section className={style.card}>
+          <div className={style.cardContent}>
+            <div className={style.cardImage}>
+              <img src={item.img} alt="" />
+            </div>
+            <div className={style.cardR}>
+              <div>{item.name}</div>
+              {item.description.length > 50 ? (
+                <div title={item.description}>
+                  {item.description.slice(0, 50)}..
+                </div>
               ) : (
-                formatState(item, el.prop)
+                <div>{item.description}</div>
               )}
-            </p>
-          </>
-        ))}
-      </div>
+            </div>
+          </div>
+          <div className={style.cardLink}>
+            <a href="#" target="_blank">
+              喜欢
+            </a>
+            <a href={item.githubLink} target="_blank">
+              github
+            </a>
+            <a href={item.url} target="_blank">
+              访问
+            </a>
+          </div>
+        </section>
+      </>
     ))
   }
   const { siteConfig } = useDocusaurusContext()

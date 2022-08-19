@@ -5,6 +5,8 @@ export interface MyProjectModel {
   url: string
   description: string
   type: string
+  img: string
+  githubLink: string
 }
 enum Api {
   Project = '/project',
