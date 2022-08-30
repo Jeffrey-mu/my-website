@@ -1,5 +1,5 @@
 ---
-slug: vue/test-utils Vitest
+slug: vue/test-utils 事件处理
 title: 事件处理
 authors: Jeffrey
 tags: [Vitest, vue/test-utils, vue测试工具]
