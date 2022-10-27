@@ -1,4 +1,5 @@
 import request from '../utils/request'
+import json from './mock/index.json'
 /**
  * 查询列表
  */
@@ -9,5 +10,6 @@ export interface ToolsDataModel {
   type: string
 }
 export function getToolsData() {
-  return request.get('/tools')
+  return json.tools
+  // return request.get('/tools')
 }

@@ -1,5 +1,5 @@
 import request from '../utils/request'
-
+import json from './mock/index.json'
 export interface MyProjectModel {
   name: string
   url: string
@@ -15,7 +15,8 @@ enum Api {
  * 查询列表
  */
 export function getMyProjectData() {
-  return request.get(Api.Project)
+  return  json.project
+  // return request.get(Api.Project)
 }
 /**
  * 添加项目

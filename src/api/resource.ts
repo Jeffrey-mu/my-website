@@ -1,4 +1,5 @@
 import request from '../utils/request'
+import json from './mock/index.json'
 enum Api {
   getResourceData = '/resource',
 }
@@ -18,6 +19,7 @@ export interface ResourceTypeModel {
  * 查询列表
  */
 export function getResourceData() {
+  return json.resource
   return request.get(Api.getResourceData)
 }
 export function getResourceType(): ResourceTypeModel[] {
