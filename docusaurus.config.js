@@ -6,13 +6,13 @@ const darkCodeTheme = require('prism-react-renderer/themes/dracula')
 
 /** @type {import('@docusaurus/types').Config} */
 const config = {
-  title: 'My Site',
+  title: 'Jeffrey',
   tagline: '',
   url: 'https://github.com/Jeffrey-mu/my-website',
   baseUrl: '/',
   onBrokenLinks: 'throw',
   onBrokenMarkdownLinks: 'warn',
-  favicon: 'img/favicon.ico',
+  favicon: 'img/logo.png',
 
   // GitHub pages deployment config.
   // If you aren't using GitHub pages, you don't need these.
@@ -86,10 +86,10 @@ const config = {
         // ……其他 Algolia 参数
       },
       navbar: {
-        title: 'My Site',
+        title: 'Jeffrey',
         logo: {
-          alt: 'My Site Logo',
-          src: 'img/logo.svg',
+          alt: 'Jeffrey Logo',
+          src: 'img/logo.png',
         },
         items: [
           {
