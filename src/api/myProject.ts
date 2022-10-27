@@ -15,7 +15,7 @@ enum Api {
  * 查询列表
  */
 export function getMyProjectData() {
-  return  json.project
+  return json.project
   // return request.get(Api.Project)
 }
 /**
