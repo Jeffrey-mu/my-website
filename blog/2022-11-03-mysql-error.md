@@ -4,10 +4,10 @@ title: 解决Node.js mysql报错信息
 authors: Jeffrey
 tags: [mysql]
 ---
-> 解决Node.js mysql客户端不支持认证协议引发的“ER_NOT_SUPPORTED_AUTH_MODE”问题
+
+> 解决 Node.js mysql 客户端不支持认证协议引发的“ER_NOT_SUPPORTED_AUTH_MODE”问题
 
 ## 报错信息
-
 
 ```shell
 file:///Users/wjf/Desktop/learn/node/mysql.js:12
@@ -46,11 +46,11 @@ Error: ER_NOT_SUPPORTED_AUTH_MODE: Client does not support authentication protoc
 
 ## 出错原因
 
+- 导致这个错误的原因是，目前，最新的 mysql 模块并未完全支持 MySQL 8 的“caching_sha2_password”加密方式，而“caching_sha2_password”在 MySQL 8 中是默认的加密方式。因此，下面的方式命令是默认已经使用了“caching_sha2_password”加密方式，该账号、密码无法在 mysql 模块中使用。
 
-- 导致这个错误的原因是，目前，最新的mysql模块并未完全支持MySQL 8的“caching_sha2_password”加密方式，而“caching_sha2_password”在MySQL 8中是默认的加密方式。因此，下面的方式命令是默认已经使用了“caching_sha2_password”加密方式，该账号、密码无法在mysql模块中使用。
+## 解决方法
 
-##  解决方法
-- 解决方法是从新修改用户root的密码，并指定mysql模块能够支持的加密方式：
+- 解决方法是从新修改用户 root 的密码，并指定 mysql 模块能够支持的加密方式：
 
 ```shell
 mysql> ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY '123456';
