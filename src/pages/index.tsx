@@ -19,7 +19,7 @@ function buttonItem(options) {
   )
 }
 const routes = [
-  { label: '待办事项', url: 'todo' },
+  { label: '工作计划', url: 'workPlan' },
   { label: '我的项目', url: 'myProject' },
   { label: 'tracking', url: 'tracking' },
 ]

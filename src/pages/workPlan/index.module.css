@@ -1,0 +1,60 @@
+/**
+ * CSS files with the .module.css suffix will be treated as CSS modules
+ * and scoped locally.
+ */
+
+.heroBanner {
+  padding: 4rem 0;
+  text-align: center;
+  position: relative;
+}
+
+.workPlanCard ,.workPlanEdit{
+  padding: 20px;
+  width: 500px;
+  margin: 20px auto;
+  border-radius: 10px;
+  box-shadow:  20px 20px 60px #d5d5d5,
+             -20px -20px 60px #ffffff;
+}
+.workPlanEdit {
+
+}
+.input {
+  width: 80%;
+  padding: 10px;
+  margin-bottom: 10px;
+  font-size: 15px;
+}
+.del {
+  width: 15%;
+}
+.del,.add,.copy {
+  padding: 10px 20px;
+  margin-left: 10px;
+  border-radius: 5px;
+  border: none;
+  color: #fff;
+  font-size: 14px;
+  background:#f56c6c;
+  cursor: pointer;
+}
+.add {
+  width: 40%;
+  background: #409eff;
+}
+.copy {
+   width: 40%;
+   background: #409eff;
+}
+.buttonBox {
+  margin-top: 20px;
+  display:flex;
+  justify-content: center;
+  align-items: center;
+}
+@media screen and (max-width: 500px) {
+  .workPlanCard ,.workPlanEdit {
+    width: 95vw;
+  }
+}
